@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Registration</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+      :root {
+        --primary-color: #009688;
+        --primary-dark: #00796b;
+        --primary-light: #b2dfdb;
+        --accent-color: #4db6ac;
+        --text-primary: #004d40;
+        --text-secondary: #00695c;
+        --background-light: #e0f2f1;
+        --error-color: #ff4646;
+        --dark-teal: #1a4d4d;
+        --light-teal: #b2dfdb;
+        --text-light: #f5f5f5;
+      }
+      body {
+        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .page-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 100px 20px 50px 20px; /* Added top padding for fixed header */
+      }
+      .container2 {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 77, 64, 0.15);
+        width: 100%;
+        max-width: 500px;
+        transition: transform 0.3s ease;
+      }
+
+      .container2:hover {
+        transform: translateY(-5px);
+      }
+
+      h2 {
+        color: var(--text-primary);
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      .input-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      .input-group i {
+        position: absolute;
+        left: 1rem;
+        top: 2.5rem;
+        color: var(--primary-color);
+        pointer-events: none;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 2px solid var(--primary-light);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: var(--background-light);
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1);
+        background-color: white;
+      }
+
+      .form-control:invalid:not(:placeholder-shown) {
+        border-color: var(--error-color);
+        background-color: #fff2f2;
+      }
+
+      .form-control:valid:not(:placeholder-shown) {
+        border-color: var(--accent-color);
+        background-color: white;
+      }
+
+      .password-requirements {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-top: 0.5rem;
+        padding-left: 1rem;
+      }
+
+      .password-requirements li {
+        margin-top: 0.25rem;
+        list-style-type: none;
+      }
+
+      .password-requirements li::before {
+        content: "•";
+        color: var(--primary-color);
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--primary-dark) 100%
+        );
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark) 0%,
+          var(--text-primary) 100%
+        );
+        transform: translateY(-2px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--text-secondary);
+      }
+
+      .login-link a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .login-link a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      .container {
+        display: flex;
+        background-color: white;
+        border-radius: 20px;
+        overflow: hidden;
+        width: 1000px;
+        max-width: 95%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .left-side {
+        background-color: var(--dark-teal);
+        padding: 40px;
+        width: 40%;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .wave-shape {
+        position: absolute;
+        right: -20px;
+        top: 0;
+        bottom: 0;
+        width: 50px;
+        background-color: white;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 50%);
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        background-image: url('./loooooooo.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+    
+      .title {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+        opacity: 0.9;
+      }
+
+      .right-side {
+        padding: 40px;
+        width: 60%;
+      }
+
+      .form-title {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-bottom: 2px solid #ddd;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+
+      .form-group input:focus {
+        border-bottom-color: var(--dark-teal);
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .checkbox-group input {
+        width: 16px;
+        height: 16px;
+      }
+
+      .checkbox-group label {
+        color: #666;
+      }
+
+      .checkbox-group a {
+        color: var(--dark-teal);
+        text-decoration: none;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 15px;
+      }
+
+      .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .btn-primary {
+        background-color: var(--dark-teal);
+        color: white;
+      }
+
+      .btn-secondary {
+        background-color: white;
+        color: var(--dark-teal);
+        border: 2px solid var(--dark-teal);
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+      }
+
+      .left-side {
+        font-size: 1.5rem;
+        letter-spacing: 0.2em;
+        font-weight: 300;
+      }
+
+      /* HEADER STYLES */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        z-index: 100;
+        background-color: var(--dark-teal);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        height: 70px;
+      }
+
+      .logo_main {
+        font-size: 1.5rem;
+        letter-spacing: 0.2em;
+        font-weight: 300;
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .reservation-btn {
+        padding: 0.75rem 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: transparent;
+        color: white;
+        letter-spacing: 0.2em;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 4px;
+      }
+
+      .reservation-btn:hover {
+        border-color: white;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+      }
+      
+      .menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        border-radius: 3px;
+      }
+      
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+        
+        .nav-right {
+          gap: 1rem;
+        }
+        
+        .reservation-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* FOOTER STYLES */
+      footer {
+        background-color: var(--dark-teal);
+        color: var(--text-light);
+        padding: 2rem 0;
+        margin-top: auto;
+      }
+
+      .fcontainer {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-column h3 {
+        margin-bottom: 1.2rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-column ul li a {
+        color: var(--light-teal);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: white;
+      }
+
+      .footer-column input[type="email"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .submit-btn:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        nav ul {
+          margin-top: 1rem;
+        }
+
+        .container {
+          flex-direction: column;
+        }
+        
+        .left-side, .right-side {
+          width: 100%;
+        }
+        
+        .left-side {
+          padding: 30px;
+        }
+        
+        .wave-shape {
+          display: none;
+        }
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Poiret+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <nav class="nav">
+        <a href="#" class="logo_main">FABLE</a>
+        <div class="nav-right">
+          <a href="{{url_for('help')}}" class="reservation-btn">Help Center</a>
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+    </nav>
+
+    <div class="page-content">
+      <div class="container">
+        <div class="left-side">
+          <div class="logo"></div>
+          <h1 class="title">Welcome to<br />FABLE</h1>
+          <p class="subtitle">Where comfort<br />Meets luxury</p>
+          <div class="wave-shape"></div>
+        </div>
+        <div class="right-side">
+          <div class="container2">
+            <h2>Create Account</h2>
+            <form action="{{url_for('register')}}" method="POST">
+              <div class="input-group">
+                <label for="name">Full Name</label>
+                <i class="fas fa-user"></i>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="form-control"
+                  placeholder="Enter your full name"
+                  pattern="[A-Za-z ]{2,50}"
+                  title="Please enter a valid name (2-50 characters, letters only)"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label for="email">Email Address</label>
+                <i class="fas fa-envelope"></i>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="form-control"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label for="age">Age</label>
+                <i class="fas fa-calendar-alt"></i>
+                <input
+                  type="tel"
+                  name="age"
+                  id="age"
+                  class="form-control"
+                  placeholder="Enter your age"
+                  pattern="[0-9]{1,2}"
+                  title="Please enter a valid 1-2 digit age"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label for="gender">Select Gender:</label>
+                <i class="fas fa-venus-mars"></i>
+                <select name="gender" id="gender" class="form-control" required>
+                  <option value="">Choose Gender</option>
+                  <option value="Female">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="password">Password</label>
+                <i class="fas fa-lock"></i>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="form-control"
+                  placeholder="Create a password"
+                  pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&*]).{8,}"
+                  title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long"
+                  required
+                />
+                <ul class="password-requirements">
+                  <li>At least 8 characters long</li>
+                  <li>Contains at least one uppercase letter</li>
+                  <li>Contains at least one number</li>
+                  <li>Contains at least one special character</li>
+                </ul>
+              </div>
+
+              <div class="input-group">
+                <label for="confirm_password">Confirm Password</label>
+                <i class="fas fa-lock"></i>
+                <input
+                  type="password"
+                  name="confirm_password"
+                  id="confirm_password"
+                  class="form-control"
+                  placeholder="Confirm your password"
+                  required
+                />
+              </div>
+
+              <button type="submit" class="btn">Create Account</button>
+            </form>
+            <p class="login-link">
+              Already have an account? <a href="{{url_for('login')}}">Log in</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+        <div class="fcontainer">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FABLE</h3>
+                    <p>Luxury accommodations with a commitment to sustainable hospitality and unforgettable experiences.
+                    </p>
+                </div>
+    
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Rooms & Suites</a></li>
+                        <li><a href="#">Dining</a></li>
+                        <li><a href="#">Wellness & Spa</a></li>
+                        <li><a href="#">Events</a></li>
+                    </ul>
+                </div>
+    
+                <div class="footer-column">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+    
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive special offers and updates</p>
+                    <form action="#" method="POST">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="submit-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+    
+            <div class="copyright">
+                <p>&copy; 2025 Fable Hotels. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+  </body>
+</html>

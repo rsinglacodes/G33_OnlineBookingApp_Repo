@@ -1,0 +1,455 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<style>
+:root {
+    --primary-color: #008080;
+    --secondary-color: #e0f2f2;
+    --text-color: #333;
+    --light-color: #fff;
+    --border-radius: 8px;
+    --transition-time: 0.3s;
+    --heading-font: 'Playfair Display', serif;
+    --body-font: 'Poppins', sans-serif;
+    --label-font: 'Montserrat', sans-serif;
+    --special-font: 'Cormorant Garamond', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    font-family: var(--body-font);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.2s;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 25px;
+    text-align: center;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    position: relative;
+    overflow: hidden;
+    animation: slideDown 0.7s ease-out;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+    transform: translateX(-100%);
+    animation: shine 4s infinite;
+}
+
+header h1 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    font-size: 2.4rem;
+}
+
+header p {
+    font-family: var(--special-font);
+    font-style: italic;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.feedback-form {
+    background-color: var(--light-color);
+    padding: 30px;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.7s ease-out;
+    transform-origin: bottom;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.7s ease forwards;
+}
+
+/* Staggered animation for form groups */
+.form-group:nth-child(1) { animation-delay: 0.3s; }
+.form-group:nth-child(2) { animation-delay: 0.4s; }
+.form-group:nth-child(3) { animation-delay: 0.5s; }
+.form-group:nth-child(4) { animation-delay: 0.6s; }
+.form-group:nth-child(5) { animation-delay: 0.7s; }
+.form-group:nth-child(6) { animation-delay: 0.8s; }
+.form-group:nth-child(7) { animation-delay: 0.9s; }
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: all var(--transition-time) ease;
+    font-family: var(--label-font);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: all var(--transition-time) ease;
+    font-family: var(--body-font);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 128, 128, 0.25);
+    outline: none;
+    transform: translateY(-2px);
+}
+
+textarea {
+    height: 150px;
+    resize: vertical;
+    font-family: var(--special-font);
+    font-size: 17px;
+}
+
+.rating {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.rating label {
+    cursor: pointer;
+    padding: 12px 22px;
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: none;
+    font-family: var(--special-font);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label:hover,
+.rating input[type="radio"]:checked + label {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    transform: scale(1.05);
+}
+
+.rating label::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.rating label:active::before {
+    transform: translate(-50%, -50%) scale(20);
+    opacity: 1;
+    transition: transform 0.8s, opacity 0.5s;
+}
+
+.checkbox-group {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-time) ease;
+}
+
+.checkbox-group:hover {
+    background-color: rgba(0, 128, 128, 0.05);
+    transform: translateX(5px);
+}
+
+.checkbox-group label {
+    display: inline-block;
+    color: var(--text-color);
+    font-weight: normal;
+    margin-left: 8px;
+    text-transform: none;
+    font-family: var(--body-font);
+    letter-spacing: 0;
+    font-size: 1rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 0.2rem;
+    transition: all var(--transition-time) ease;
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 15px 30px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 128, 128, 0.3);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 1s;
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+}
+
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: translateX(-100%);
+    transition: all 0.6s;
+    z-index: -1;
+}
+
+.btn-submit:hover::before {
+    transform: translateX(100%);
+}
+
+.btn-submit:hover {
+    background-color: #006666;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 102, 102, 0.4);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.success-message {
+    background-color: #e0f2f2;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-top: 30px;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.5s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid var(--primary-color);
+    font-family: var(--special-font);
+}
+
+.success-message h4 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+}
+
+.show-success {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    20% { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Bootstrap overrides and responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+    
+    .rating {
+        flex-direction: column;
+    }
+    
+    .btn-submit {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Highlight text selection */
+::selection {
+    background: var(--primary-color);
+    color: var(--light-color);
+}
+</style>
+
+{% endblock %}
+
+{% block main_block %}
+<div class="container">
+    <header class="animate_animated animate_fadeInDown">
+        <h1>Share Your Experience</h1>
+        <p>We value your feedback to improve our services</p>
+    </header>
+
+    <form class="feedback-form">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" class="form-control" required placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" required placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label for="booking">Booking Reference</label>
+            <input type="text" id="booking" class="form-control" required placeholder="Enter your booking reference">
+        </div>
+
+        <div class="form-group">
+            <label>Overall Rating</label>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5" class="animate_animated animate_pulse">Excellent</label>
+                
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" class="animate_animated animatepulse animate_delay-1s">Very Good</label>
+                
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" class="animate_animated animatepulse animate_delay-2s">Good</label>
+                
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" class="animate_animated animatepulse animate_delay-3s">Fair</label>
+                
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" class="animate_animated animatepulse animate_delay-4s">Poor</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>What did you enjoy most?</label>
+            <div class="checkbox-group">
+                <input type="checkbox" id="room" class="form-check-input">
+                <label for="room" class="form-check-label">Room Comfort</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="service" class="form-check-input">
+                <label for="service" class="form-check-label">Staff Service</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="cleanliness" class="form-check-input">
+                <label for="cleanliness" class="form-check-label">Cleanliness</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="location" class="form-check-input">
+                <label for="location" class="form-check-label">Location</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="amenities" class="form-check-input">
+                <label for="amenities" class="form-check-label">Amenities</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="comments">Additional Comments</label>
+            <textarea id="comments" class="form-control" placeholder="Please share your experience in detail..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="improvements">Suggestions for Improvement</label>
+            <textarea id="improvements" class="form-control" placeholder="How can we serve you better?"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Feedback</button>
+    </form>
+
+    <div class="success-message">
+        <h4 class="text-success">Thank you for your valuable feedback!</h4>
+        <p>We appreciate you taking the time to help us improve. Your input matters to us.</p>
+    </div>
+{% endblock %}

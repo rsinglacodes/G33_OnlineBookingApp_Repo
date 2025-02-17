@@ -1,0 +1,194 @@
+{% extends 'homepage.html' %}
+
+{% block content %}
+<style>
+    .category.active {
+        background-color: var(--secondary-color);
+        opacity: 1; /* Ensure full opacity when active */
+    }
+</style>
+{% endblock %}
+
+
+{% block main_block %}
+
+<div class="hotel-grid">
+    <!-- Beach Hotel Card 1 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://thegoantouch.in/wp-content/uploads/2020/01/infinity-pool-near-beach.jpg" class="hotel-image" alt="Beachfront Villa in Goa">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">South Goa, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.9</p>
+                </div>
+            </div>
+            <p class="hotel-distance">443 kilometers away</p>
+            <p class="hotel-dates">Jul 22-27</p>
+            <p class="hotel-price">₹22,000 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Beach Hotel Card 2 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://res.cloudinary.com/simplotel/image/upload/w_5000,h_3333/x_0,y_260,w_5000,h_2813,r_0,c_crop,q_97,fl_progressive/w_900,f_auto,c_fit/niraamaya-retreats-surya-samudra-kovalam/Niraamaya_Retreats_Surya_Samdura,_Kovalam_Resort,_Kovalam_Beach_Resort_3" class="hotel-image" alt="Kovalam Beach Resort">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Kovalam, Kerala</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.8</p>
+                </div>
+            </div>
+            <p class="hotel-distance">887 kilometers away</p>
+            <p class="hotel-dates">Aug 5-10</p>
+            <p class="hotel-price">₹18,500 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Beach Hotel Card 3 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://media2.thrillophilia.com/images/photos/000/135/078/original/1540275625_thumbailimage.jpg?gravity=center&width=1280&height=642&crop=fill&quality=auto&fetch_format=auto&flags=strip_profile&format=jpg&sign_url=true" class="hotel-image" alt="Andaman Island Resort">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Havelock Island, Andaman</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.9</p>
+                </div>
+            </div>
+            <p class="hotel-distance">1,256 kilometers away</p>
+            <p class="hotel-dates">Sep 10-15</p>
+            <p class="hotel-price">₹28,200 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Beach Hotel Card 4 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://www.theeraulaa.in/wp-content/uploads/2020/10/varkala-taj-garden-resort.jpg" class="hotel-image" alt="Varkala Beach Resort">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Varkala, Kerala</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.7</p>
+                </div>
+            </div>
+            <p class="hotel-distance">892 kilometers away</p>
+            <p class="hotel-dates">Jul 20-27</p>
+            <p class="hotel-price">₹16,000 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Beach Hotel Card 5 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://q-xx.bstatic.com/xdata/images/hotel/840x460/453984550.jpg?k=b0b0586d936c760bcfe139e0e02d30814323517aff68a80525ff00205c38532b&o=" class="hotel-image" alt="Palolem Beach Resort">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Palolem, Goa</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.8</p>
+                </div>
+            </div>
+            <p class="hotel-distance">445 kilometers away</p>
+            <p class="hotel-dates">Aug 12-18</p>
+            <p class="hotel-price">₹19,500 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Beach Hotel Card 6 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://imgcld.yatra.com/ytimages/image/upload/t_hotel_mobileactualimage/v1051284268/Hotel/Lakshadweep/00065685/kavaratti_banner_icVMcs.jpg" class="hotel-image" alt="Lakshadweep Resort">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Kavaratti, Lakshadweep</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.9</p>
+                </div>
+            </div>
+            <p class="hotel-distance">1,187 kilometers away</p>
+            <p class="hotel-dates">Sep 2-8</p>
+            <p class="hotel-price">₹32,800 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Beach Hotel Card 7 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://andamanemeraldholidays.com/wp-content/uploads/2022/06/places-to-visit-in-andaman-compressed.jpg" class="hotel-image" alt="Radhanagar Beach Resort">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Radhanagar, Andaman</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.9</p>
+                </div>
+            </div>
+            <p class="hotel-distance">1,262 kilometers away</p>
+            <p class="hotel-dates">Jul 15-20</p>
+            <p class="hotel-price">₹25,500 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Beach Hotel Card 8 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://media-cdn.tripadvisor.com/media/photo-s/16/99/91/ef/photo1jpg.jpg" class="hotel-image" alt="Mahabalipuram Beach Resort">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Mahabalipuram, Tamil Nadu</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.7</p>
+                </div>
+            </div>
+            <p class="hotel-distance">1,345 kilometers away</p>
+            <p class="hotel-dates">Aug 7-13</p>
+            <p class="hotel-price">₹17,200 <span>night</span></p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

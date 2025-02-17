@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Fable Hotels</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap">
+
+  {% block content %}
+  {% endblock %}
+  <style>
+    :root {
+      --primary-teal: #1a4d4d;
+      --light-teal: #e6eded;
+      --dark-teal: #0d2626;
+      --accent-teal: #2c7a7a;
+      --text-dark: #1a1a1a;
+      --text-light: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary-teal);
+      color: var(--text-light);
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      z-index: 100;
+      background-color: var(--dark-teal);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      height: 70px;
+    }
+
+    .logo_main {
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      font-weight: 300;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .reservation-btn {
+      padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: transparent;
+      color: white;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 4px;
+    }
+
+    .reservation-btn:hover {
+      border-color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      border-radius: 3px;
+    }
+        main {
+      padding: 2rem 0;
+    }
+
+    .hero {
+      background-color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero h1 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .search-box {
+      display: flex;
+      margin: 1.5rem 0;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 4px 0 0 4px;
+      font-size: 1rem;
+    }
+
+    .search-box button {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .category-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-card h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .category-card ul {
+      padding-left: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .category-card li {
+      margin-bottom: 0.5rem;
+    }
+
+    .category-card a {
+      color: var(--secondary-color);
+      text-decoration: none;
+    }
+
+    .category-card a:hover {
+      text-decoration: underline;
+    }
+
+    .faq-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .faq-section h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    /* CSS-only accordions for FAQ */
+    .faq-item {
+      margin-bottom: 1rem;
+    }
+
+    .faq-question {
+      background-color: var(--light-bg);
+      padding: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: "+";
+      position: absolute;
+      right: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-toggle {
+      display: none;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding: 0 1rem;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .faq-toggle:checked~.faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-toggle:checked~.faq-question::after {
+      content: "−";
+    }
+
+    .contact-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-section h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .contact-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .contact-option {
+      text-align: center;
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+    }
+
+    .contact-option h3 {
+      margin-top: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .contact-button {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    .contact-button:hover {
+      background-color: var(--primary-color);
+    }
+
+    footer {
+      background-color: var(--dark-teal);
+      color: var(--text-light);
+      padding: 2rem 0;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 1.2rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-column ul li a {
+      color: var(--light-teal);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--text-light);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        margin-top: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+    a{
+      text-decoration: none;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    
+        <nav class="nav">
+          <a href="#" class="logo_main">FABLE</a>
+          <div class="nav-right">
+            <a href="{{url_for('login')}}" class="reservation-btn">Login </a>
+            <div class="menu-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </nav>
+      
+  </header>
+  <main>
+    <section class="hero">
+      <h1>How can we help you?</h1>
+      <p>Find answers to your questions or contact our support team</p>
+
+      <div class="search-box">
+        <input type="text" placeholder="Search for help topics...">
+        <button>Search</button>
+      </div>
+    </section>
+
+    <section class="categories">
+      <div class="category-card">
+        <h3>Account Management</h3>
+        <ul>
+          <li><a href="#">Create or edit account</a></li>
+          <li><a href="#">Reset password</a></li>
+          <li><a href="#">Update payment info</a></li>
+          <li><a href="#">Manage preferences</a></li>
+          <li><a href="#">Delete account</a></li>
+        </ul>
+      </div>
+
+      <div class="category-card">
+        <h3>Bookings & Reservations</h3>
+        <ul>
+          <li><a href="#">How to book a hotel</a></li>
+          <li><a href="#">Modify a reservation</a></li>
+          <li><a href="#">Cancel a booking</a></li>
+          <li><a href="#">Get booking confirmation</a></li>
+          <li><a href="#">Group bookings</a></li>
+        </ul>
+      </div>
+
+      <div class="category-card">
+        <h3>Payments & Billing</h3>
+        <ul>
+          <li><a href="#">Payment methods</a></li>
+          <li><a href="#">Booking charges explained</a></li>
+          <li><a href="#">Refund policy</a></li>
+          <li><a href="#">Currency conversion</a></li>
+          <li><a href="#">Invoice requests</a></li>
+        </ul>
+      </div>
+
+      <div class="category-card">
+        <h3>Loyalty Program</h3>
+        <ul>
+          <li><a href="#">Join Fable Rewards</a></li>
+          <li><a href="#">Earning points</a></li>
+          <li><a href="#">Redeeming points</a></li>
+          <li><a href="#">Member benefits</a></li>
+          <li><a href="#">Elite status tiers</a></li>
+        </ul>
+      </div>
+
+      <div class="category-card">
+        <h3>Policies & Terms</h3>
+        <ul>
+          <li><a href="#">Cancellation policy</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Terms of service</a></li>
+          <li><a href="#">Best price guarantee</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+
+      <div class="category-card">
+        <h3>Travel Information</h3>
+        <ul>
+          <li><a href="#">COVID-19 updates</a></li>
+          <li><a href="#">Travel advisories</a></li>
+          <li><a href="#">Visa requirements</a></li>
+          <li><a href="#">Travel insurance</a></li>
+          <li><a href="#">Local transportation</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <input type="checkbox" id="faq1" class="faq-toggle">
+        <label for="faq1" class="faq-question">
+          How do I cancel my hotel reservation?&nbsp;&nbsp;
+        </label>
+        <div class="faq-answer">
+          <p>To cancel your reservation, log in to your account, go to "My Bookings," select the reservation you want to
+            cancel, and click the "Cancel" button. The refund amount will depend on the hotel's cancellation policy,
+            which
+            is displayed on your booking confirmation. Some bookings may be non-refundable as indicated at the time of
+            booking.</p>
+        </div>
+      </div>
+      <br>
+      <div class="faq-item">
+        <input type="checkbox" id="faq2" class="faq-toggle">
+        <label for="faq2" class="faq-question">
+          What if I need to change my reservation dates?&nbsp;&nbsp;
+        </label>
+        <div class="faq-answer">
+          <p>You can modify your reservation by logging in, going to "My Bookings," selecting the reservation, and
+            clicking
+            "Modify." If the new dates have different rates, you may need to pay the difference or receive a partial
+            refund.
+            Some reservations may not be modifiable - in this case, you'll need to cancel (if possible) and make a new
+            booking.</p>
+        </div>
+      </div>
+      <br>
+      <div class="faq-item">
+        <input type="checkbox" id="faq3" class="faq-toggle">
+        <label for="faq3" class="faq-question">
+          How do I get a receipt for my stay?&nbsp;&nbsp;
+        </label>
+        <div class="faq-answer">
+          <p>For past stays, you can find your receipt in your account under "Booking History." Select the completed
+            stay
+            and click "View Receipt" to download a PDF copy. If you need a receipt for a recent stay that isn't showing
+            up,
+            or if you need a specialized invoice, please contact our customer support team.</p>
+        </div>
+      </div>
+      <br>
+      <div class="faq-item">
+        <input type="checkbox" id="faq4" class="faq-toggle">
+        <label for="faq4" class="faq-question">
+          What is the Best Price Guarantee?&nbsp;&nbsp;
+        </label>
+        <div class="faq-answer">
+          <p>Our Best Price Guarantee ensures you get the lowest price for your hotel booking. If you find a lower rate
+            for
+            the same hotel, room type, and dates on another website within 24 hours of making your reservation, we'll
+            match
+            that price and give you an additional 10% discount on your booking.</p>
+        </div>
+      </div>
+      <br>
+      <div class="faq-item">
+        <input type="checkbox" id="faq5" class="faq-toggle">
+        <label for="faq5" class="faq-question">
+          How do I redeem my loyalty points? &nbsp;&nbsp;
+        </label>
+        <div class="faq-answer">
+          <p>To redeem Serenity Rewards points, log in to your account, search for a hotel as usual, and on the payment
+            page, you'll see an option to "Use Points" if you have enough points for your stay. You can choose to pay
+            entirely with points or use a points + cash combination for eligible bookings.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <h2>Still Need Help? Contact Us</h2>
+
+      <div class="contact-options">
+        <div class="contact-option">
+          <div class="icon">📞</div>
+          <h3>Call Us</h3>
+          <p>24/7 Customer Support</p>
+          <p>+1-888-555-0123</p>
+        </div>
+
+        <div class="contact-option">
+          <div class="icon">💬</div>
+          <h3>Live Chat</h3>
+          <p>Available 24/7</p>
+          <a href="#"><button class="contact-button">Start Chat</button></a>
+        </div>
+
+        <div class="contact-option">
+          <div class="icon">✉️</div>
+          <h3>Email Us</h3>
+          <p>Response within 24 hours</p>
+          <p>support@fablehotel.com</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Fable Hotels</h3>
+          <p>Luxury accommodations with a commitment to sustainable hospitality and unforgettable experiences.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Rooms & Suites</a></li>
+            <li><a href="#">Dining</a></li>
+            <li><a href="#">Wellness & Spa</a></li>
+            <li><a href="#">Events</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="{{url_for('contact')}}">Contact Us</a></li>
+            <li><a href="{{url_for('term')}}">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Newsletter</h3>
+          <p>Subscribe to receive special offers and updates</p>
+          <form action="#" method="POST">
+            <input type="email" placeholder="Your email address" required style="margin-bottom: 0.5rem;">
+            <button type="submit" class="submit-btn" style="width: 100%;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2025 Fable Hotels. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

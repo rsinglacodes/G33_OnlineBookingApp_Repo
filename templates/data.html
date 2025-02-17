@@ -1,0 +1,39 @@
+{% extends 'register.html' %}
+
+{% block content %}
+{% if users %}
+
+<hr>
+
+<div class="container">
+    <table class="table table-warning ">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>User Name</th>
+                <th>User age</th>
+                <th>User email</th>
+                <th>User gender</th>
+                <th>User mobile</th>
+                <th>Action</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{user.userid}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.age}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.mobile}}</td>
+                <td>
+                    <a href="{{url_for('update', id= user.userid)}}" class="btn btn-warning">Update</a>
+                    <a href="{{url_for('delete', id= user.userid)}}" class="btn btn-danger"
+                        onclick="return confirm('Are You Sure ?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </thead>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

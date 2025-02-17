@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title_block %} Update User Details {% endblock %}
+
+
+{% block main_block %}
+<a href="{{url_for('home')}}">Back</a>
+<div class="container">
+    <h2 class="text-center">User Update Page</h2>
+    <form action="{{url_for('update', id=user.userid)}}" method="POST">
+        <div class="form-group">
+            <label for="userid">User Id:</label>
+            <input type="text" class="form-control" id="userid" name="userid" value={{user.userid}}
+                disabled>
+        </div>
+
+
+        <div class="form-group">
+            <label for="name">Enter User Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{user.name}}" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Enter User age:</label>
+            <input type="number" class="form-control" id="age" name="age" value="{{user.age}}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Enter User Email:</label>
+            <input type="text" class="form-control" id="email" name="email" value="{{user.email}}" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="gender">Select Gender:</label>
+
+
+            <select name="gender" id="gender" class="form-control" required>
+                <option value="">Choose Gender</option>
+                <option value="Female" {% if user.gender="Female" %} selected {% endif %}>Female
+                </option>
+                <option value="Male" {% if user.gender="Male" %} selected {% endif %}>Male
+                </option>
+                <option value="Other" {% if user.gender="Other" %} selected {% endif %}>
+                    Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="mobile">Enter User Mobile:</label>
+            <input type="number" class="form-control" id="mobile" name="mobile" value="{{user.mobile}}" required>
+        </div>
+
+        <br>
+        <input type="submit" value="Update user" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}

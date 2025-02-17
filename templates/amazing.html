@@ -1,0 +1,199 @@
+{% extends 'homepage.html' %}
+{% block content %}
+<style>
+    .category.active {
+        background-color: var(--secondary-color);
+        opacity: 1; /* Ensure full opacity when active */
+    }
+</style>
+{% endblock %}
+
+{% block main_block %}
+<!-- Hotels Grid -->
+<div class="hotel-grid">
+    <!-- Hotel Card 1 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/77/c1/b3/swimming-pool-view.jpg?w=700&h=-1&s=1"
+                class="hotel-image" alt="Luxury Resort in Lonavla">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Lonavla, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.9</p>
+                </div>
+            </div>
+            <p class="hotel-distance">63 kilometers away</p>
+            <p class="hotel-dates">Jul 22-27</p>
+            <p class="hotel-price">₹11,000 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Hotel Card 2 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://www.resortrio.com/wp-content/uploads/2020/10/Pool-view-of-5-star-Resort-Rio-Goa.png"
+                class="hotel-image" alt="Beachfront Resort in Goa">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Goa, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.8</p>
+                </div>
+            </div>
+            <p class="hotel-distance">443 kilometers away</p>
+            <p class="hotel-dates">Aug 5-10</p>
+            <p class="hotel-price">₹15,500 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Hotel Card 3 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://images.trvl-media.com/lodging/9000000/8710000/8704400/8704364/17625cdf.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill"
+                class="hotel-image" alt="Luxury Resort in Udaipur">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Udaipur, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.7</p>
+                </div>
+            </div>
+            <p class="hotel-distance">756 kilometers away</p>
+            <p class="hotel-dates">Sep 10-15</p>
+            <p class="hotel-price">₹18,200 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Hotel Card 4 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://images.trvl-media.com/lodging/12000000/11300000/11298900/11298844/7f337f98.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill"
+                class="hotel-image" alt="Mountain Retreat in Manali">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Manali, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.9</p>
+                </div>
+            </div>
+            <p class="hotel-distance">582 kilometers away</p>
+            <p class="hotel-dates">Jul 20-27</p>
+            <p class="hotel-price">₹14,000 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Hotel Card 5 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+
+            <img src="https://www.shiv-vilas.in/Content/images/banner3.jpg" class="hotel-image" alt="Heritage Hotel in Jaipur">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Jaipur, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.8</p>
+                </div>
+            </div>
+            <p class="hotel-distance">395 kilometers away</p>
+            <p class="hotel-dates">Aug 12-18</p>
+            <p class="hotel-price">₹16,500 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Hotel Card 6 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://www.global-gallivanting.com/wp-content/uploads/2015/10/leela-kovalam-beach-resort.gif"
+                class="hotel-image" alt="Luxury Villa in Kerala">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Kerala, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.9</p>
+                </div>
+            </div>
+            <p class="hotel-distance">887 kilometers away</p>
+            <p class="hotel-dates">Sep 2-8</p>
+            <p class="hotel-price">₹19,800 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Hotel Card 7 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://content.jdmagicbox.com/comp/def_content_category/mountain-resorts/1-mountain-resorts-1-3ek5p.jpg"
+                class="hotel-image" alt="Lakeside Resort in Nainital">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Nainital, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.7</p>
+                </div>
+            </div>
+            <p class="hotel-distance">322 kilometers away</p>
+            <p class="hotel-dates">Jul 15-20</p>
+            <p class="hotel-price">₹12,500 <span>night</span></p>
+        </div>
+    </div>
+
+    <!-- Hotel Card 8 -->
+    <div class="hotel-card">
+        <div class="hotel-image-container">
+            <img src="https://www.kayak.co.in/rimg/himg/6f/8d/28/expedia_group-56533-224779543-508560.jpg?width=836&height=607&crop=true"
+                class="hotel-image" alt="Hillside Retreat in Shimla">
+            <button class="favorite-button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+        <div class="hotel-content">
+            <div class="hotel-info">
+                <p class="hotel-location">Shimla, India</p>
+                <div class="hotel-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <p>4.8</p>
+                </div>
+            </div>
+            <p class="hotel-distance">345 kilometers away</p>
+            <p class="hotel-dates">Aug 7-13</p>
+            <p class="hotel-price">₹13,200 <span>night</span></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
