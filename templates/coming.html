@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?cs=srgb&dl=pexels-pixabay-261102.jpg&fm=jpg') center/cover;
+        }
+
+        .container {
+            
+            width: 1200px;
+            height: 700px;
+            background: linear-gradient(to right, rgba(237, 237, 237, 0.95), rgba(250, 250, 250, 0.98));
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.2s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?cs=srgb&dl=pexels-pixabay-261102.jpg&fm=jpg') center/cover;
+            opacity: 0.5;
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .container:hover .background-image {
+            opacity: 0.15;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            color: #1a4d4d;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo span {
+            font-size: 24px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover span {
+            color: #886a4c;
+        }
+
+        .heading {
+            font-size: 64px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #242323;
+            animation: fadeIn 1s ease-out 0.2s backwards;
+            transition: transform 0.3s ease;
+        }
+
+        .heading:hover {
+            transform: scale(1.02);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #1a4d4d;
+            font-size: 24px;
+            margin-bottom: 10px;
+            animation: fadeIn 1s ease-out 0.4s backwards;
+        }
+
+        .description {
+            text-align: center;
+            color:#2c6e6e;
+            font-size: 16px;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out 0.8s backwards;
+        }
+
+        .timer-item {
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .timer-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .timer-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .timer-item:hover .timer-number {
+            color: #886a4c;
+        }
+
+        .timer-label {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .timer-item:hover .timer-label {
+            color: #333;
+        }
+
+        .contact-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #333;
+            color: #333;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-out 1s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(51, 51, 51, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .contact-btn:hover {
+            background: #333;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #1a4d4d;
+            font-size: 14px;
+            margin-top: 40px;
+            animation: fadeIn 1s ease-out 1.2s backwards;
+        }
+
+        @media (max-width: 768px) {
+            .heading {
+                font-size: 48px;
+            }
+
+            .subtitle {
+                font-size: 20px;
+            }
+
+            .timer {
+                gap: 20px;
+            }
+
+            .timer-number {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heading {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .timer {
+                flex-wrap: wrap;
+            }
+
+            .timer-item {
+                width: 45%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="background-image"></div>
+        <div class="content">
+            <div class="logo">
+                <span>🍷 Hotel</span>
+            </div>
+
+            <h1 class="heading">Coming Soon</h1>
+            <p class="subtitle">Our website is under construction now</p>
+            <p class="description">We Are Working Very Hard To Give You The Best Experience With This One.</p>
+
+            <div class="timer">
+                <div class="timer-item">
+                    <div class="timer-number" id="days">00</div>
+                    <div class="timer-label">Days</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-number" id="hours">00</div>
+                    <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-number" id="minutes">00</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-number" id="seconds">00</div>
+                    <div class="timer-label">Seconds</div>
+                </div>
+            </div>
+            <a href="{{url_for('contact')}}" style="text-decoration: none;">
+            <button class="contact-btn">Contact Us</button>
+            </a>
+
+            <div class="footer">
+                © 2025 Hotel Coming Soon. All Rights Reserved | Design By W3layouts
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set the launch date (3 months from now)
+        const launchDate = new Date();
+        launchDate.setMonth(launchDate.getMonth() + 3);
+
+        function updateTimer() {
+            const now = new Date();
+            const distance = launchDate - now;
+
+            // Calculate time units
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Update the HTML
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Update timer immediately and then every second
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

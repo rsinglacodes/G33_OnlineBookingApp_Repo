@@ -10,12 +10,11 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap">
 
-  {% block content %}
-  {% endblock %}
   <style>
     :root {
-      --primary-teal: #1a4d4d;
-      --light-teal: #e6eded;
+      --primary-color: #1a4d4d;
+      --secondary-color:var(--accent-teal);
+      --light-color: #e6eded;
       --dark-teal: #0d2626;
       --accent-teal: #2c7a7a;
       --text-dark: #1a1a1a;
@@ -368,9 +367,9 @@
   <header>
     
         <nav class="nav">
-          <a href="#" class="logo_main">FABLE</a>
+          <a href="" class="logo_main">FABLE</a>
           <div class="nav-right">
-            <a href="{{url_for('login')}}" class="reservation-btn">Login </a>
+            <a href="{{url_for('home')}}" class="reservation-btn" id="login-link">Home </a>
             <div class="menu-toggle">
               <span></span>
               <span></span>

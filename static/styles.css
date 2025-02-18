@@ -1,0 +1,772 @@
+/* static/styles.css */
+:root {
+    --primary-color: #1a4d4d;
+    --primary-light: #2a6d6d;
+    --primary-dark: #0a3d3d;
+    --secondary-color: #e8f3f3;
+    --accent-color: #f0a04b;
+    --text-color: #333333;
+    --light-text: #666666;
+    --error-color: #dc3545;
+    --success-color: #28a745;
+    --background-color: #fafafa;
+    --border-color: #dddddd;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+/* Main Content Styles */
+main {
+    padding: 30px 0;
+}
+
+.payment-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.payment-details {
+    flex: 2;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+.payment-info {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+h3 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+/* Booking Summary */
+.booking-summary {
+    background-color: var(--secondary-color);
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-item.total {
+    margin-top: 15px;
+    font-weight: bold;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.coupon-input {
+    display: flex;
+    gap: 10px;
+}
+
+.coupon-input input {
+    flex: 1;
+}
+
+.coupon-info {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.coupon-info ul {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+/* Payment Options */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.payment-option {
+    position: relative;
+}
+
+.payment-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.payment-option label {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-option input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background-color: rgba(26, 77, 77, 0.05);
+}
+
+.payment-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    margin-right: 10px;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.payment-name {
+    flex: 1;
+}
+
+.payment-fee {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* Card Details */
+.card-input {
+    margin-bottom: 12px;
+}
+
+.card-row {
+    display: flex;
+    gap: 15px;
+}
+
+.card-input.half {
+    flex: 1;
+}
+
+/* Total Section */
+.total-section {
+    margin: 25px 0;
+}
+
+.amount-breakdown {
+    background-color: var(--secondary-color);
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.breakdown-item.total {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 12px;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 11px 24px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(26, 77, 77, 0.1);
+}
+
+.btn-text {
+    color: var(--light-text);
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.btn-text:hover {
+    text-decoration: underline;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-outline:hover {
+    background-color: rgba(26, 77, 77, 0.1);
+}
+
+/* Info Sections */
+.info-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-section:last-child {
+    border-bottom: none;
+}
+
+.info-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.info-link:hover {
+    text-decoration: underline;
+}
+
+.need-help {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.need-help .btn-outline {
+    margin-top: 10px;
+}
+
+.secure-badges {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.payment-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--primary-dark);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 25px 0;
+    text-align: center;
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+/* Confirmation Page Styles */
+.confirmation-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.confirmation-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.confirmation-icon {
+    color: var(--success-color);
+    font-size: 5rem;
+    margin-bottom: 15px;
+}
+
+.confirmation-message {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.confirmation-details {
+    background-color: var(--secondary-color);
+    border-radius: 6px;
+    padding: 20px;
+    text-align: left;
+    margin: 25px 0;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.detail-item span:first-child {
+    font-weight: 500;
+}
+
+.booking-instructions {
+    text-align: left;
+    margin: 25px 0;
+}
+
+.booking-instructions ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.booking-instructions li {
+    margin-bottom: 8px;
+}
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.additional-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.additional-info .info-section {
+    flex: 1;
+    min-width: 250px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-bottom: none;
+}
+
+/* Refund Policy Page Styles */
+.policy-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.policy-content {
+    flex: 2;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    min-width: 300px;
+}
+
+.policy-sidebar {
+    flex: 1;
+    min-width: 250px;
+}
+
+.policy-section {
+    margin-bottom: 30px;
+}
+
+.policy-list {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.policy-list li {
+    margin-bottom: 12px;
+}
+
+.policy-steps {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.policy-steps li {
+    margin-bottom: 10px;
+}
+
+.highlight {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.note {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 10px;
+    color: var(--light-text);
+}
+
+.quick-links {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.quick-links ul {
+    list-style-type: none;
+}
+
+.quick-links li {
+    margin-bottom: 12px;
+}
+
+.quick-links li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.quick-links li a i {
+    margin-right: 8px;
+}
+
+.quick-links li a:hover {
+    color: var(--primary-light);
+    text-decoration: underline;
+}
+
+.contact-support {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.contact-methods {
+    margin: 15px 0;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.contact-method i {
+    width: 25px;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+/* Cancel Page Styles */
+.cancel-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.cancel-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cancel-icon {
+    color: var(--error-color);
+    font-size: 5rem;
+    margin-bottom: 15px;
+}
+
+.cancel-message {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.cancel-options {
+    margin: 25px 0;
+}
+
+.option-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.cancel-info {
+    color: var(--light-text);
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+.help-section {
+    margin-bottom: 30px;
+}
+
+.reason-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.reason-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.reason-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.reason-card h4 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.reason-card ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.reason-card li {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.reason-link {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.reason-link:hover {
+    text-decoration: underline;
+}
+
+.contact-section {
+    text-align: center;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+.contact-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.contact-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-option:hover {
+    background-color: var(--secondary-color);
+}
+
+.contact-option i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .payment-container, 
+    .policy-container,
+    .card-row {
+        flex-direction: column;
+    }
+    
+    .confirmation-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .option-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .contact-options {
+        gap: 15px;
+    }
+    
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    nav ul {
+        margin-top: 10px;
+        justify-content: center;
+    }
+}

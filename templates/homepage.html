@@ -1,1135 +1,1081 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fable Hotels - Find Your Perfect Stay</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-    />
 
-    {% block Content %} {% endblock %}
-    <style>
-      /* [Previous CSS styles remain unchanged up to the navbar-search class] */
-      :root {
-        --primary-color: #1a4d4d;
-        --primary-dark: #0e3333;
-        --primary-light: #2a5d5d;
-        --secondary-color: #e0f2f1;
-        --accent-color: #f0b75e;
-        --light-bg: #f7f7f7;
-        --white: #ffffff;
-        --dark-text: #333333;
-        --light-text: #f9fafb;
-        --gray-text: #717171;
-        --border-color: #dddddd;
-        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        --shadow-color: rgba(0, 0, 0, 0.08);
-        --hover-shadow: rgba(0, 0, 0, 0.15);
-        --text-primary: #222222;
-        --text-secondary: #717171;
-        --background-hover: #f7f7f7;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fable Hotels - Find Your Perfect Stay</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+  {% block Content %} {% endblock %}
+  <style>
+    /* [Previous CSS styles remain unchanged up to the navbar-search class] */
+    :root {
+      --primary-color: #1a4d4d;
+      --primary-dark: #0e3333;
+      --primary-light: #2a5d5d;
+      --secondary-color: #e0f2f1;
+      --accent-color: #f0b75e;
+      --light-bg: #f7f7f7;
+      --white: #ffffff;
+      --dark-text: #333333;
+      --light-text: #f9fafb;
+      --gray-text: #717171;
+      --border-color: #dddddd;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-color: rgba(0, 0, 0, 0.08);
+      --hover-shadow: rgba(0, 0, 0, 0.15);
+      --text-primary: #222222;
+      --text-secondary: #717171;
+      --background-hover: #f7f7f7;
+    }
 
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: var(--dark-text);
-        margin: 0;
-        padding: 0;
-        background-color: var(--light-bg);
-      }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      .container {
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 0 24px;
-      }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--dark-text);
+      margin: 0;
+      padding: 0;
+      background-color: var(--light-bg);
+    }
 
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-      button {
-        cursor: pointer;
-      }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-      /* Navbar Styles */
+    button {
+      cursor: pointer;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      height: 90px;
+      border-bottom: 1px solid var(--border-color);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--white);
+      z-index: 100;
+      padding: 0 24px;
+    }
+
+    .navbar-logo {
+      justify-self: start;
+    }
+
+    .navbar-logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .navbar-logo .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .navbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      height: 90px;
+      border-bottom: 1px solid var(--border-color);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--white);
+      z-index: 100;
+      padding: 0 24px;
+    }
+
+    .navbar-search {
+      display: none;
+      /* Hide the original search bar */
+    }
+
+    /* New search section styles */
+    .search-section {
+      margin-top: 200px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .search-bar {
+      width: 720px;
+      height: 74px;
+      border-radius: 50px;
+      background-color: #ffffff;
+      padding-top: 15px;
+      padding-bottom: 20px;
+      box-shadow: 2px 2px 6px rgb(56, 56, 56);
+    }
+
+    /* [Rest of the original CSS remains unchanged] */
+    .search-form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 7px;
+      padding: 0 8px;
+    }
+
+    .form-group {
+      flex: 1;
+      position: relative;
+      padding: 8px 13px;
+      border-radius: 32px;
+      transition: all 0.2s ease;
+    }
+
+    .form-group:hover {
+      background-color: var(--background-hover);
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 4px;
+      left: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      transform-origin: left;
+      transition: all 0.2s ease;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 32px;
+      padding: 16px 0 0 0;
+      border: none;
+      background: none;
+      font-size: 14px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .search-input:focus {
+      outline: none;
+    }
+
+    /* Modern select styling */
+    select.search-input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right center;
+      padding-right: 24px;
+    }
+
+    /* Divider between inputs - enhanced */
+    .form-group:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -4px;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background-color: var(--border-color);
+    }
+
+    /* Search button styles - modernized */
+    .search-button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 8px;
+      box-shadow: 0 2px 8px rgba(26, 77, 77, 0.3);
+    }
+
+    .search-button:hover {
+      background-color: var(--primary-dark);
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(26, 77, 77, 0.4);
+    }
+
+    /* Date input styling */
+    input[type="date"] {
+      font-family: inherit;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.6;
+      transition: 0.2s ease;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator:hover {
+      opacity: 1;
+    }
+
+    .navbar-menu {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .become-host {
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--dark-text);
+      transition: color 0.2s;
+    }
+
+    .become-host:hover {
+      color: var(--primary-color);
+    }
+
+    .language-icon {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .language-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .profile-menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 5px 5px 12px;
+      gap: 8px;
+      border-radius: 21px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      height: 42px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: var(--white);
+      position: relative;
+      /* Position relative for dropdown */
+    }
+
+    .profile-menu:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .profile-icon {
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+      /* Add margin to separate from dropdown */
+    }
+
+    /* Dropdown Menu Styles */
+    .dropdown-menu {
+      display: none;
+      /* Hidden by default */
+      position: absolute;
+      /* Position it below the profile menu */
+      right: 0;
+      /* Align to the right */
+      top: 50px;
+      /* Move it down */
+      background-color: var(--white);
+      box-shadow: var(--box-shadow);
+      border-radius: 8px;
+      z-index: 200;
+      /* Ensure it appears above other elements */
+      width: 200px;
+    }
+
+    .profile-menu:hover .dropdown-menu {
+      display: block;
+      /* Show on hover */
+    }
+
+    .dropdown-menu a {
+      display: block;
+      /* Make links block elements */
+      padding: 10px 16px;
+      /* Add some padding */
+      color: var(--dark-text);
+      text-decoration: none;
+      /* Remove underline */
+    }
+
+    .dropdown-menu a:hover {
+      background-color: var(--secondary-color);
+      /* Change background on hover */
+    }
+
+    /* Category Bar Styles */
+    .category-bar {
+      height: 96px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background-color: var(--white);
+      padding: 0 24px;
+      z-index: 99;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--border-color);
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    .category-bar::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, Edge */
+    }
+
+    .category {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      min-width: 56px;
+      transition: all 0.2s;
+      padding: 8px 4px;
+      border-radius: 8px;
+    }
+
+    .category:hover {
+      opacity: 0.7;
+      background-color: var(--secondary-color);
+    }
+
+    .category.active {
+      border-bottom: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .hotel-img {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .category-text {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .category-scroll {
+      position: sticky;
+      right: 24px;
+      cursor: pointer;
+      background-color: var(--white);
+      padding-left: 16px;
+      display: flex;
+      align-items: center;
+      color: var(--primary-color);
+    }
+
+    .filter-button {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 12px;
+      box-shadow: var(--box-shadow);
+      height: 48px;
+      width: 96px;
+      border: 1px solid var(--border-color);
+      margin-left: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: var(--white);
+    }
+
+    .filter-button:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .filter-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Price Toggle Bar */
+    .price-toggle {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 192px;
+      margin-bottom: 24px;
+    }
+
+    .price-toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      width: 600px;
+      height: 64px;
+      background-color: var(--white);
+      box-shadow: var(--box-shadow);
+      transition: all 0.2s ease;
+    }
+
+    .price-toggle-container:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .price-toggle-text {
+      width: 460px;
+      display: flex;
+      justify-content: start;
+    }
+
+    .price-label {
+      border-right: 2px solid var(--border-color);
+      padding-right: 16px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .price-description {
+      font-size: 16px;
+      color: var(--gray-text);
+      padding-left: 16px;
+    }
+
+    .toggle-icon {
+      color: var(--primary-color);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .toggle-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Hotel Grid */
+    .hotel-grid {
+      margin: 56px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 40px 24px;
+    }
+
+    .hotel-card {
+      display: flex;
+      flex-direction: column;
+      height: 384px;
+      width: 100%;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: var(--white);
+      box-shadow: var(--box-shadow);
+    }
+
+    .hotel-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .hotel-image-container {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .hotel-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .hotel-card:hover .hotel-image {
+      transform: scale(1.05);
+    }
+
+    .favorite-button {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .favorite-button:hover {
+      transform: scale(1.2);
+      color: #ff4b4b;
+    }
+
+    .hotel-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .hotel-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .hotel-location {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .hotel-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hotel-rating i {
+      color: var(--accent-color);
+    }
+
+    .hotel-rating p {
+      font-weight: 500;
+    }
+
+    .hotel-distance,
+    .hotel-dates {
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-top: 4px;
+    }
+
+    .hotel-price {
+      margin-top: auto;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .hotel-price span {
+      font-weight: 400;
+      color: var(--gray-text);
+      font-size: 14px;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--light-text);
+      padding: 64px 0 32px;
+      margin-top: 64px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .footer-column h3 {
+      color: var(--secondary-color);
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column li {
+      margin-bottom: 16px;
+    }
+
+    .footer-column a {
+      color: var(--light-text);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      padding: 4px 0;
+      display: inline-block;
+    }
+
+    .footer-column a:hover {
+      color: var(--accent-color);
+      transform: translateX(4px);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-text);
+      transition: all 0.2s;
+    }
+
+    .social-icon:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      margin-top: 48px;
+      text-align: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 24px;
+      padding-right: 24px;
+      color: var(--secondary-color);
+    }
+
+    .copyright p {
+      margin-bottom: 8px;
+    }
+
+    .copyright a {
+      color: var(--secondary-color);
+      margin: 0 8px;
+      transition: color 0.2s;
+    }
+
+    .copyright a:hover {
+      color: var(--accent-color);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
       .navbar {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        align-items: center;
-        height: 90px;
-        border-bottom: 1px solid var(--border-color);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: var(--white);
-        z-index: 100;
-        padding: 0 24px;
-      }
-
-      .navbar-logo {
-        justify-self: start;
+        grid-template-columns: auto 1fr auto;
+        padding: 0 16px;
       }
 
       .navbar-logo img {
-        height: 50px;
+        height: 32px;
         width: auto;
       }
 
-      .navbar-logo .logo-text {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--primary-color);
-        margin-left: 8px;
-        vertical-align: middle;
-      }
-
-      .navbar {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        height: 90px;
-        border-bottom: 1px solid var(--border-color);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: var(--white);
-        z-index: 100;
-        padding: 0 24px;
-      }
-
       .navbar-search {
-        display: none; /* Hide the original search bar */
-      }
-
-      /* New search section styles */
-      .search-section {
-        margin-top: 200px;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-      }
-
-      .search-bar {
-        width: 720px;
-        height: 74px;
-        border-radius: 50px;
-        background-color: #ffffff;
-        padding-top: 15px;
-        padding-bottom: 20px;
-        box-shadow: 2px 2px 6px rgb(56, 56, 56);
-      }
-
-      /* [Rest of the original CSS remains unchanged] */
-      .search-form {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        gap: 7px;
-        padding: 0 8px;
-      }
-
-      .form-group {
-        flex: 1;
-        position: relative;
-        padding: 8px 13px;
-        border-radius: 32px;
-        transition: all 0.2s ease;
-      }
-
-      .form-group:hover {
-        background-color: var(--background-hover);
-      }
-
-      .form-group label {
-        position: absolute;
-        top: 4px;
-        left: 16px;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-primary);
-        transform-origin: left;
-        transition: all 0.2s ease;
-      }
-
-      .search-input {
-        width: 100%;
-        height: 32px;
-        padding: 16px 0 0 0;
-        border: none;
-        background: none;
-        font-size: 14px;
-        color: var(--text-primary);
-        cursor: pointer;
-      }
-
-      .search-input::placeholder {
-        color: var(--text-secondary);
-      }
-
-      .search-input:focus {
-        outline: none;
-      }
-
-      /* Modern select styling */
-      select.search-input {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right center;
-        padding-right: 24px;
-      }
-
-      /* Divider between inputs - enhanced */
-      .form-group:not(:last-child)::after {
-        content: "";
-        position: absolute;
-        right: -4px;
-        top: 20%;
-        height: 60%;
-        width: 1px;
-        background-color: var(--border-color);
-      }
-
-      /* Search button styles - modernized */
-      .search-button {
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-right: 8px;
-        box-shadow: 0 2px 8px rgba(26, 77, 77, 0.3);
-      }
-
-      .search-button:hover {
-        background-color: var(--primary-dark);
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(26, 77, 77, 0.4);
-      }
-
-      /* Date input styling */
-      input[type="date"] {
-        font-family: inherit;
-      }
-
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        opacity: 0.6;
-        transition: 0.2s ease;
-      }
-
-      input[type="date"]::-webkit-calendar-picker-indicator:hover {
-        opacity: 1;
+        display: none;
       }
 
       .navbar-menu {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 32px;
+        gap: 16px;
       }
 
       .become-host {
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        color: var(--dark-text);
-        transition: color 0.2s;
-      }
-
-      .become-host:hover {
-        color: var(--primary-color);
-      }
-
-      .language-icon {
-        cursor: pointer;
-        transition: transform 0.2s;
-      }
-
-      .language-icon:hover {
-        transform: scale(1.1);
-      }
-
-      .profile-menu {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 5px 5px 5px 12px;
-        gap: 8px;
-        border-radius: 21px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-        height: 42px;
-        border: 1px solid var(--border-color);
-        cursor: pointer;
-        transition: all 0.2s ease;
-        background-color: var(--white);
-        position: relative; /* Position relative for dropdown */
-      }
-
-      .profile-menu:hover {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-        transform: translateY(-1px);
-      }
-
-      .profile-icon {
-        background-color: var(--primary-color);
-        color: white;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        line-height: 30px;
-        font-size: 12px;
-        font-weight: 600;
-        margin-right: 8px; /* Add margin to separate from dropdown */
-      }
-
-      /* Dropdown Menu Styles */
-      .dropdown-menu {
-        display: none; /* Hidden by default */
-        position: absolute; /* Position it below the profile menu */
-        right: 0; /* Align to the right */
-        top: 50px; /* Move it down */
-        background-color: var(--white);
-        box-shadow: var(--box-shadow);
-        border-radius: 8px;
-        z-index: 200; /* Ensure it appears above other elements */
-      }
-
-      .profile-menu:hover .dropdown-menu {
-        display: block; /* Show on hover */
-      }
-
-      .dropdown-menu a {
-        display: block; /* Make links block elements */
-        padding: 10px 16px; /* Add some padding */
-        color: var(--dark-text);
-        text-decoration: none; /* Remove underline */
-      }
-
-      .dropdown-menu a:hover {
-        background-color: var(
-          --secondary-color
-        ); /* Change background on hover */
-      }
-
-      /* Category Bar Styles */
-      .category-bar {
-        height: 96px;
-        display: flex;
-        align-items: center;
-        gap: 32px;
-        position: fixed;
-        top: 80px;
-        left: 0;
-        right: 0;
-        background-color: var(--white);
-        padding: 0 24px;
-        z-index: 99;
-        overflow-x: auto;
-        border-bottom: 1px solid var(--border-color);
-        scrollbar-width: none;
-        /* Firefox */
-      }
-
-      .category-bar::-webkit-scrollbar {
         display: none;
-        /* Chrome, Safari, Edge */
       }
 
-      .category {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        min-width: 56px;
-        transition: all 0.2s;
-        padding: 8px 4px;
-        border-radius: 8px;
-      }
-
-      .category:hover {
-        opacity: 0.7;
-        background-color: var(--secondary-color);
-      }
-
-      .category.active {
-        border-bottom: 2px solid var(--primary-color);
-        color: var(--primary-color);
-      }
-
-      .hotel-img {
-        width: 24px;
-        height: 24px;
-        border-radius: 4px;
-        margin-bottom: 8px;
-      }
-
-      .category-text {
-        font-size: 12px;
-        white-space: nowrap;
-      }
-
-      .category-scroll {
-        position: sticky;
-        right: 24px;
-        cursor: pointer;
-        background-color: var(--white);
-        padding-left: 16px;
-        display: flex;
-        align-items: center;
-        color: var(--primary-color);
-      }
-
-      .filter-button {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-        height: 48px;
-        width: 96px;
-        border: 1px solid var(--border-color);
-        margin-left: 16px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        background-color: var(--white);
-      }
-
-      .filter-button:hover {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        transform: translateY(-1px);
-      }
-
-      .filter-label {
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      /* Price Toggle Bar */
-      .price-toggle {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-top: 192px;
-        margin-bottom: 24px;
+      .hotel-grid {
+        margin: 32px 16px;
+        gap: 24px 16px;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       }
 
       .price-toggle-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 12px;
-        padding: 16px;
-        border: 1px solid var(--border-color);
-        width: 600px;
-        height: 64px;
-        background-color: var(--white);
-        box-shadow: var(--box-shadow);
-        transition: all 0.2s ease;
-      }
-
-      .price-toggle-container:hover {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        transform: translateY(-1px);
-      }
-
-      .price-toggle-text {
-        width: 460px;
-        display: flex;
-        justify-content: start;
-      }
-
-      .price-label {
-        border-right: 2px solid var(--border-color);
-        padding-right: 16px;
-        font-size: 16px;
-        font-weight: 500;
-      }
-
-      .price-description {
-        font-size: 16px;
-        color: var(--gray-text);
-        padding-left: 16px;
-      }
-
-      .toggle-icon {
-        color: var(--primary-color);
-        cursor: pointer;
-        transition: transform 0.2s;
-      }
-
-      .toggle-icon:hover {
-        transform: scale(1.1);
-      }
-
-      /* Hotel Grid */
-      .hotel-grid {
-        margin: 56px 40px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 40px 24px;
-      }
-
-      .hotel-card {
-        display: flex;
-        flex-direction: column;
-        height: 384px;
-        width: 100%;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        border-radius: 16px;
-        overflow: hidden;
-        background-color: var(--white);
-        box-shadow: var(--box-shadow);
-      }
-
-      .hotel-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-      }
-
-      .hotel-image-container {
-        position: relative;
-        height: 220px;
-        overflow: hidden;
-      }
-
-      .hotel-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s;
-      }
-
-      .hotel-card:hover .hotel-image {
-        transform: scale(1.05);
-      }
-
-      .favorite-button {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background: none;
-        border: none;
-        color: white;
-        font-size: 24px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        transition: transform 0.2s;
-      }
-
-      .favorite-button:hover {
-        transform: scale(1.2);
-        color: #ff4b4b;
-      }
-
-      .hotel-content {
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-      }
-
-      .hotel-info {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-      }
-
-      .hotel-location {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--primary-color);
-      }
-
-      .hotel-rating {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .hotel-rating i {
-        color: var(--accent-color);
-      }
-
-      .hotel-rating p {
-        font-weight: 500;
-      }
-
-      .hotel-distance,
-      .hotel-dates {
-        font-size: 14px;
-        color: var(--gray-text);
-        margin-top: 4px;
-      }
-
-      .hotel-price {
-        margin-top: auto;
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--primary-color);
-      }
-
-      .hotel-price span {
-        font-weight: 400;
-        color: var(--gray-text);
-        font-size: 14px;
-      }
-
-      /* Footer Styles */
-      footer {
-        background-color: var(--primary-color);
-        color: var(--light-text);
-        padding: 64px 0 32px;
-        margin-top: 64px;
+        width: 90%;
+        max-width: 600px;
       }
 
       .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 32px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+
+
+    @keyframes keyframes-svg-filled {
+      0% {
+        transform: scale(0);
       }
 
-      .footer-column h3 {
-        color: var(--secondary-color);
-        margin-top: 0;
-        margin-bottom: 24px;
-        font-size: 18px;
-        font-weight: 600;
+      25% {
+        transform: scale(1.2);
       }
 
-      .footer-column ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+      50% {
+        transform: scale(1);
+        filter: brightness(1.5);
+      }
+    }
+
+    @keyframes keyframes-svg-celebrate {
+      0% {
+        transform: scale(0);
       }
 
-      .footer-column li {
-        margin-bottom: 16px;
+      50% {
+        opacity: 1;
+        filter: brightness(1.5);
       }
 
-      .footer-column a {
-        color: var(--light-text);
-        text-decoration: none;
-        font-size: 14px;
-        transition: all 0.2s;
-        padding: 4px 0;
-        display: inline-block;
-      }
-
-      .footer-column a:hover {
-        color: var(--accent-color);
-        transform: translateX(4px);
-      }
-
-      .social-links {
-        display: flex;
-        gap: 16px;
-        margin-top: 24px;
-      }
-
-      .social-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background-color: var(--primary-light);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--light-text);
-        transition: all 0.2s;
-      }
-
-      .social-icon:hover {
-        background-color: var(--accent-color);
-        transform: translateY(-3px);
-      }
-
-      .copyright {
-        margin-top: 48px;
-        text-align: center;
-        padding-top: 32px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 14px;
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 24px;
-        padding-right: 24px;
-        color: var(--secondary-color);
-      }
-
-      .copyright p {
-        margin-bottom: 8px;
-      }
-
-      .copyright a {
-        color: var(--secondary-color);
-        margin: 0 8px;
-        transition: color 0.2s;
-      }
-
-      .copyright a:hover {
-        color: var(--accent-color);
-      }
-
-      /* Responsive Design */
-      @media (max-width: 768px) {
-        .navbar {
-          grid-template-columns: auto 1fr auto;
-          padding: 0 16px;
-        }
-
-        .navbar-logo img {
-          height: 32px;
-          width: auto;
-        }
-
-        .navbar-search {
-          display: none;
-        }
-
-        .navbar-menu {
-          gap: 16px;
-        }
-
-        .become-host {
-          display: none;
-        }
-
-        .hotel-grid {
-          margin: 32px 16px;
-          gap: 24px 16px;
-          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        }
-
-        .price-toggle-container {
-          width: 90%;
-          max-width: 600px;
-        }
-
-        .footer-content {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      /* From Uiverse.io by catraco */
-      .heart-container {
-        --heart-color: rgb(255, 91, 137);
-        position: relative;
-        width: 50px;
-        height: 50px;
-        transition: 0.3s;
-      }
-
-      .heart-container .checkbox {
-        position: absolute;
-        width: 100%;
-        height: 100%;
+      100% {
+        transform: scale(1.4);
         opacity: 0;
-        z-index: 20;
-        cursor: pointer;
+        display: none;
       }
+    }
 
-      .heart-container .svg-container {
+    /* Responsive styles for search bar */
+    @media (max-width: 768px) {
+      .search-bar {
         width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
+        height: auto;
+        padding: 16px;
+        border-radius: 24px;
+        max-width: 600px;
+        margin: 0 auto;
       }
 
-      .heart-container .svg-outline,
-      .heart-container .svg-filled {
-        fill: var(--heart-color);
-        position: absolute;
+      .search-form {
+        flex-direction: column;
+        width: 100%;
+        gap: 16px;
       }
 
-      .heart-container .svg-filled {
-        animation: keyframes-svg-filled 1s;
+      .form-group {
+        width: 100%;
+        margin-bottom: 8px;
+        border-radius: 16px;
+        padding: 12px 16px;
+      }
+
+      .form-group::after {
         display: none;
       }
 
-      .heart-container .svg-celebrate {
-        position: absolute;
-        animation: keyframes-svg-celebrate 0.5s;
-        animation-fill-mode: forwards;
+      .search-button {
+        width: 100%;
+        border-radius: 16px;
+        height: 48px;
+        margin-top: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-bar {
+        gap: 16px;
+      }
+
+      .filter-button {
         display: none;
-        stroke: var(--heart-color);
-        fill: var(--heart-color);
-        stroke-width: 2px;
       }
 
-      .heart-container .checkbox:checked ~ .svg-container .svg-filled {
-        display: block;
+      .hotel-grid {
+        grid-template-columns: 1fr;
       }
 
-      .heart-container .checkbox:checked ~ .svg-container .svg-celebrate {
-        display: block;
+      .footer-content {
+        grid-template-columns: 1fr;
       }
+    }
+  </style>
+</head>
 
-      @keyframes keyframes-svg-filled {
-        0% {
-          transform: scale(0);
-        }
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-logo">
+      <a href="#">
+        <img src="../static/Screenshot (23).png" alt="Fable Hotels Logo" />
+      </a>
+    </div>
 
-        25% {
-          transform: scale(1.2);
-        }
+    <!-- {% for category,messages in get_flashed_messages(with_categories=True) %}
 
-        50% {
-          transform: scale(1);
-          filter: brightness(1.5);
-        }
-      }
 
-      @keyframes keyframes-svg-celebrate {
-        0% {
-          transform: scale(0);
-        }
-
-        50% {
-          opacity: 1;
-          filter: brightness(1.5);
-        }
-
-        100% {
-          transform: scale(1.4);
-          opacity: 0;
-          display: none;
-        }
-      }
-
-      /* Responsive styles for search bar */
-      @media (max-width: 768px) {
-        .search-bar {
-          width: 100%;
-          flex-direction: column;
-          height: auto;
-          padding: 16px;
-          border-radius: 24px;
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .search-form {
-          flex-direction: column;
-          width: 100%;
-          gap: 16px;
-        }
-
-        .form-group {
-          width: 100%;
-          margin-bottom: 8px;
-          border-radius: 16px;
-          padding: 12px 16px;
-        }
-
-        .form-group::after {
-          display: none;
-        }
-
-        .search-button {
-          width: 100%;
-          border-radius: 16px;
-          height: 48px;
-          margin-top: 8px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .category-bar {
-          gap: 16px;
-        }
-
-        .filter-button {
-          display: none;
-        }
-
-        .hotel-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .footer-content {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Navbar -->
-    <div class="navbar">
-      <div class="navbar-logo">
-        <a href="#">
-          <img src="/api/placeholder/70/50" alt="Fable Hotels Logo" />
-          <span class="logo-text">Fable</span>
-        </a>
+      <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+          {{messages}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+  
+      {% endfor %} -->
 
-      <div class="navbar-menu">
-        <a href="#" class="become-host">Become a host</a>
-        <span class="material-symbols-outlined language-icon">language</span>
-        <div class="profile-menu">
-          <i class="fa-solid fa-user profile-icon"></i>
-          <div class="dropdown-menu">
-            <a href="{{url_for('profile')}}">Profile</a>
-            <a href="{{url_for('setting')}}">Settings</a>
-            <a href="{{url_for('logout')}}">Logout</a>
-            <a href="{{url_for('contact')}}">Contact</a>
-            <a href="{{url_for('feedback')}}">Feedback</a>
-          </div>
+    <div class="navbar-menu">
+      <!-- <a href="#" class="become-host">Become a host</a> -->
+      <!-- <span class="material-symbols-outlined language-icon">language</span> -->
+      <h3 style="color: #1a4d4d;">Welcome {{current_user.name }}!</h3>
+      <div class="profile-menu">
+        <i class="fa-solid fa-user profile-icon"></i>
+        <div class="dropdown-menu">
+          <a href="{{url_for('profile')}}">Profile</a>
+          <a href="{{url_for('setting')}}">Settings</a>
+          <a href="{{url_for('logout')}}">Logout</a>
+          <a href="{{url_for('contact')}}">Contact</a>
+          <a href="{{url_for('feedback')}}">Feedback</a>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Search section (replaces price toggle) -->
-    <section class="search-section">
-      <div class="search-bar">
-        <form class="search-form">
-          <div class="form-group">
-            <label for="destination">Destination/Hotel</label>
-            <input
-              type="text"
-              id="destination"
-              class="search-input"
-              placeholder="Where are you going?"
-            />
-          </div>
+  <!-- Search section (replaces price toggle) -->
+  <section class="search-section">
+    <div class="search-bar">
+      <form class="search-form">
+        <div class="form-group">
+          <label for="destination">Destination/Hotel</label>
+          <input type="text" id="destination" class="search-input" placeholder="Where are you going?" />
+        </div>
 
-          <div class="form-group">
-            <label for="check-in">Check-in</label>
-            <input type="date" id="check-in" class="search-input" />
-          </div>
+        <div class="form-group">
+          <label for="check-in">Check-in</label>
+          <input type="date" id="check-in" class="search-input" />
+        </div>
 
-          <div class="form-group">
-            <label for="check-out">Check-out</label>
-            <input type="date" id="check-out" class="search-input" />
-          </div>
+        <div class="form-group">
+          <label for="check-out">Check-out</label>
+          <input type="date" id="check-out" class="search-input" />
+        </div>
 
-          <div class="form-group">
-            <label for="guests">Guests</label>
-            <select id="guests" class="search-input">
-              <option>1 Adult</option>
-              <option>2 Adults</option>
-              <option>2 Adults, 1 Child</option>
-              <option>2 Adults, 2 Children</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label for="guests">Guests</label>
+          <select id="guests" class="search-input">
+            <option>1 Adult</option>
+            <option>2 Adults</option>
+            <option>2 Adults, 1 Child</option>
+            <option>2 Adults, 2 Children</option>
+          </select>
+        </div>
 
-          <button type="submit" class="search-button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+        <button type="submit" class="search-button">
+          <a href="{{url_for('search')}}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-          </button>
-        </form>
-      </div>
-    </section>
+          </a>
+        </button>
 
-    <!-- Category bar -->
-    <div class="category-bar">
-      <!-- [Category bar content remains unchanged] -->
-      <div class="category">
-        <img src="../static/type1.jpeg" alt="Amazing pools" class="hotel-img" />
-        <p class="category-text">
-          <a href="{{url_for('amazing')}}">Amazing pools</a>
-        </p>
-      </div>
-      <!-- [Rest of categories remain unchanged] -->
-      <div class="category">
-        <img src="../static/type2.jpeg" alt="Beach" class="hotel-img" />
-        <p class="category-text"><a href="{{url_for('beach')}}">Beaches</a></p>
-      </div>
-      <div class="category">
-        <img src="../static/type3.jpeg" alt="Luxury" class="hotel-img" />
-        <p class="category-text"><a href="{{url_for('luxury')}}">Luxury</a></p>
-      </div>
-      <div class="category">
-        <img src="../static/type4.jpeg" alt="Countryside" class="hotel-img" />
-        <p class="category-text">Countryside</p>
-      </div>
-      <div class="category">
-        <img
-          src="../static/type5.jpeg"
-          alt="Spa & Wellness"
-          class="hotel-img"
-        />
-        <p class="category-text">Spa & Wellness</p>
-      </div>
-      <div class="category">
-        <img src="../static/type6.jpeg" alt="All-Inclusive" class="hotel-img" />
-        <p class="category-text">All-Inclusive</p>
-      </div>
-      <div class="category">
-        <img src="../static/type7.jpeg" alt="Amazing views" class="hotel-img" />
-        <p class="category-text">Amazing views</p>
-      </div>
-      <div class="category">
-        <img src="../static/type8.jpeg" alt="Boutique" class="hotel-img" />
-        <p class="category-text">Boutique</p>
-      </div>
-      <div class="category">
-        <img src="../static/type9.jpeg" alt="Lakefront" class="hotel-img" />
-        <p class="category-text">Lakefront</p>
-      </div>
-      <div class="category">
-        <img src="../static/type10.jpeg" alt="Beachfront" class="hotel-img" />
-        <p class="category-text">Beachfront</p>
-      </div>
-      <div class="category">
-        <img src="../static/type11.jpeg" alt="Design" class="hotel-img" />
-        <p class="category-text">Design</p>
-      </div>
-      <div class="category">
-        <img src="../static/type12.jpeg" alt="Golf" class="hotel-img" />
-        <p class="category-text">Golf</p>
-      </div>
 
-      <div class="category-scroll">
-        <span class="material-symbols-outlined">arrow_circle_right</span>
-      </div>
+      </form>
+    </div>
+  </section>
 
-      <div class="filter-button">
-        <span class="material-symbols-outlined">tune</span>
-        <p class="filter-label">Filters</p>
-      </div>
-
+  <!-- Category bar -->
+  <div class="category-bar">
+    <!-- [Category bar content remains unchanged] -->
+    <div class="category">
+      <img src="../static/type1.jpeg" alt="Amazing pools" class="hotel-img" />
+      <p class="category-text">
+        <a href="{{url_for('amazing')}}">Amazing pools</a>
+      </p>
+    </div>
+    <!-- [Rest of categories remain unchanged] -->
+    <div class="category">
+      <img src="../static/type2.jpeg" alt="Beach" class="hotel-img" />
+      <p class="category-text"><a href="{{url_for('beach')}}">Beaches</a></p>
+    </div>
+    <div class="category">
+      <img src="../static/type3.jpeg" alt="Luxury" class="hotel-img" />
+      <p class="category-text"><a href="{{url_for('luxury')}}">Luxury</a></p>
+    </div>
+    <div class="category">
+      <img src="../static/type4.jpeg" alt="Countryside" class="hotel-img" />
+      <p class="category-text">Countryside</p>
+    </div>
+    <div class="category">
+      <img src="../static/type5.jpeg" alt="Spa & Wellness" class="hotel-img" />
+      <p class="category-text">Spa & Wellness</p>
+    </div>
+    <div class="category">
+      <img src="../static/type6.jpeg" alt="All-Inclusive" class="hotel-img" />
+      <p class="category-text">All-Inclusive</p>
+    </div>
+    <div class="category">
+      <img src="../static/type7.jpeg" alt="Amazing views" class="hotel-img" />
+      <p class="category-text">Amazing views</p>
+    </div>
+    <div class="category">
+      <img src="../static/type8.jpeg" alt="Boutique" class="hotel-img" />
+      <p class="category-text">Boutique</p>
+    </div>
+    <div class="category">
+      <img src="../static/type9.jpeg" alt="Lakefront" class="hotel-img" />
+      <p class="category-text">Lakefront</p>
+    </div>
+    <div class="category">
+      <img src="../static/type10.jpeg" alt="Beachfront" class="hotel-img" />
+      <p class="category-text">Beachfront</p>
+    </div>
+    <div class="category">
+      <img src="../static/type11.jpeg" alt="Design" class="hotel-img" />
+      <p class="category-text">Design</p>
+    </div>
+    <div class="category">
+      <img src="../static/type12.jpeg" alt="Golf" class="hotel-img" />
+      <p class="category-text">Golf</p>
     </div>
 
-    <main>{% block main_block %} {% endblock %}</main>
+    <div class="category-scroll">
+      <span class="material-symbols-outlined">arrow_circle_right</span>
+    </div>
 
-    <!-- [Footer remains unchanged] -->
-    <footer>
-      <!-- [Footer content remains unchanged] -->
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-column">
-            <h3>GreenStay Hotels</h3>
-            <p>
-              Luxury accommodations with a commitment to sustainable hospitality
-              and unforgettable experiences.
-            </p>
-          </div>
+    <div class="filter-button">
+      <span class="material-symbols-outlined">tune</span>
+      <p class="filter-label">Filters</p>
+    </div>
 
-          <div class="footer-column">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Rooms & Suites</a></li>
-              <li><a href="#">Dining</a></li>
-              <li><a href="#">Wellness & Spa</a></li>
-              <li><a href="#">Events</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h3>Information</h3>
-            <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Terms & Conditions</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">FAQ</a></li>
-            </ul>
-          </div>
+  </div>
 
-          <div class="footer-column">
-            <h3>Newsletter</h3>
-            <p>Subscribe to receive special offers and updates</p>
-            <form action="#" method="POST">
-              <input
-                type="email"
-                placeholder="Your email address"
-                required
-                style="margin-bottom: 0.5rem"
-              />
-              <button type="submit" class="submit-btn" style="width: 100%">
-                Subscribe
-              </button>
-            </form>
-          </div>
+  <main>{% block main_block %} {% endblock %}</main>
+
+  <!-- [Footer remains unchanged] -->
+  <footer>
+    <!-- [Footer content remains unchanged] -->
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>GreenStay Hotels</h3>
+          <p>
+            Luxury accommodations with a commitment to sustainable hospitality
+            and unforgettable experiences.
+          </p>
         </div>
 
-        <div class="copyright">
-          <p>&copy; 2025 GreenStay Hotels. All Rights Reserved.</p>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Rooms & Suites</a></li>
+            <li><a href="#">Dining</a></li>
+            <li><a href="#">Wellness & Spa</a></li>
+            <li><a href="#">Events</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Newsletter</h3>
+          <p>Subscribe to receive special offers and updates</p>
+          <form action="#" method="POST">
+            <input type="email" placeholder="Your email address" required style="margin-bottom: 0.5rem" />
+            <button type="submit" class="submit-btn" style="width: 100%">
+              Subscribe
+            </button>
+          </form>
         </div>
       </div>
-    </footer>
 
-    <!-- [JavaScript remains unchanged] -->
-    <script>
-      // [Previous JavaScript code remains unchanged]
-      // JavaScript to toggle dropdown menu
-      document
-        .querySelector(".profile-menu")
-        .addEventListener("click", function (event) {
-          const dropdown = this.querySelector(".dropdown-menu");
-          dropdown.style.display =
-            dropdown.style.display === "block" ? "none" : "block";
-          event.stopPropagation(); // Prevent event from bubbling up
-        });
+      <div class="copyright">
+        <p>&copy; 2025 GreenStay Hotels. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-      // Close dropdown if clicked outside
-      document.addEventListener("click", function () {
-        const dropdowns = document.querySelectorAll(".dropdown-menu");
-        dropdowns.forEach((dropdown) => {
-          dropdown.style.display = "none";
-        });
+  <!-- [JavaScript remains unchanged] -->
+  <script>
+    // [Previous JavaScript code remains unchanged]
+    // JavaScript to toggle dropdown menu
+    document
+      .querySelector(".profile-menu")
+      .addEventListener("click", function (event) {
+        const dropdown = this.querySelector(".dropdown-menu");
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+        event.stopPropagation(); // Prevent event from bubbling up
       });
 
-      // Add hover effect to categories
-      const categories = document.querySelectorAll(".category");
-      categories.forEach((category) => {
-        category.addEventListener("mouseenter", () => {
-          category.classList.add("active");
-        });
-        category.addEventListener("mouseleave", () => {
-          category.classList.remove("active");
-        });
+    // Close dropdown if clicked outside
+    document.addEventListener("click", function () {
+      const dropdowns = document.querySelectorAll(".dropdown-menu");
+      dropdowns.forEach((dropdown) => {
+        dropdown.style.display = "none";
       });
-    </script>
-  </body>
+    });
+
+    // Add hover effect to categories
+    const categories = document.querySelectorAll(".category");
+    categories.forEach((category) => {
+      category.addEventListener("mouseenter", () => {
+        category.classList.add("active");
+      });
+      category.addEventListener("mouseleave", () => {
+        category.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+
 </html>

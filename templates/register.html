@@ -497,6 +497,46 @@
           display: none;
         }
       }
+
+      
+  
+      /* Container for content */
+      .content {
+        position: relative;
+        z-index: 1; /* Ensure content is above the leaves */
+        padding: 20px;
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+  
+      /* Leaves styling */
+      .leaf {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: url('../static/leaf.png') no-repeat center/cover;
+        animation: blow 10s linear infinite;
+        z-index: -1; /* Send leaves to the background */
+      }
+  
+      /* Animation for leaves */
+      @keyframes blow {
+        0% {
+          transform: translateX(-10%) translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(110%) translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -595,7 +635,7 @@
                   id="password"
                   class="form-control"
                   placeholder="Create a password"
-                  pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&*]).{8,}"
+                  pattern="^(?=.*\d)(?=.*[a-zA-Z]).{8,}$"
                   title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long"
                   required
                 />
@@ -619,6 +659,23 @@
                   required
                 />
               </div>
+
+              <div class="input-group">
+                <label for="mobile">Mobile Number</label>
+                <i class="fas fa-phone-alt"></i> <!-- Use a phone icon instead of calendar for mobile -->
+                <input
+                  type="tel"
+                  name="mobile"
+                  id="mobile"
+                  class="form-control"
+                  placeholder="Enter your mobile number"
+                  pattern="^\d{10}$"
+                  title="Please enter a valid 10-digit number"
+                  required
+                  maxlength="10" 
+                />
+              </div>
+              
 
               <button type="submit" class="btn">Create Account</button>
             </form>
@@ -676,5 +733,34 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Function to create leaves dynamically
+        function createLeaves() {
+          const numLeaves = 12; // Number of leaves
+          for (let i = 0; i < numLeaves; i++) {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+      
+            // Randomly decide whether the leaf will be on the left or right edge
+            const isLeftEdge = Math.random() < 0.5; // 50% chance for left or right
+      
+            // Set the horizontal position (biased toward the edges)
+            if (isLeftEdge) {
+              leaf.style.left = $`{Math.random() * 20}vw`; // 0% to 20% (left edge)
+            } else {
+              leaf.style.left = $`{80 + Math.random() * 20}vw`; // 80% to 100% (right edge)
+            }
+      
+            // Random animation duration and delay
+            leaf.style.animationDuration = $`{5 + Math.random() * 10}s`;
+            leaf.style.animationDelay = $`{Math.random() * 5}s`;
+      
+            document.body.appendChild(leaf);
+          }
+        }
+      
+        createLeaves(); // Call the function to create leaves
+      </script>
   </body>
 </html>

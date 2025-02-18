@@ -118,11 +118,14 @@ def login():
         if user and user.check_password(password):
             login_user(user)
             flash("Login successful!", "success")
-            return redirect(url_for("homepage"))  # Redirect to homepage, or desired location
+            return redirect(url_for("amazing"))  # Redirect to homepage, or desired location
         else:
-            flash("Invalid credentials!", "danger")
+            if user and user.role == 'admin':
+                flash("Invalid admin credentials!", "danger")
+            else:
+                flash("Invalid credentials!", "danger")
 
-    return render_template("login.html")  # Assuming you have a login.html template
+    return render_template("index.html")  # Assuming you have a login.html template
 
 @app.route("/delete/<int:id>")
 @login_required
@@ -163,7 +166,7 @@ def update(id):
 @login_required
 @admin_required
 def admin():
-    return render_template("data.html")
+    return render_template("register.html")
 
 @app.route("/homepage")
 @login_required
@@ -218,7 +221,30 @@ def setting():
 
 @app.route("/term")
 def term():
-    return render_template("term.html")
+    return render_template("terms.html")
+
+
+@app.route("/learn")
+def learn():
+    return render_template("learn.html")
+
+
+@app.route("/coming")
+@login_required
+def coming():
+    return render_template("coming.html")
+
+
+@app.route("/search")
+@login_required
+def search():
+    return render_template("search.html")
+
+@app.route("/data")
+@admin_required
+@login_required
+def data():
+    return render_template("data.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
