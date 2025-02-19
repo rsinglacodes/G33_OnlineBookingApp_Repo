@@ -211,7 +211,7 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 20px;
-        background-image: url('./loooooooo.png');
+        background-image: url('../static/logo_leaf.png');
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -549,7 +549,7 @@
   </head>
   <body>
     <nav class="nav">
-        <a href="#" class="logo_main">FABLE</a>
+        <a href="{{url_for('home')}}" class="logo_main">FABLE</a>
         <div class="nav-right">
           <a href="{{url_for('help')}}" class="reservation-btn">Help Center</a>
           <div class="menu-toggle">
@@ -762,5 +762,8 @@
       
         createLeaves(); // Call the function to create leaves
       </script>
+
+      {% block content %}
+      {% endblock %}
   </body>
 </html>

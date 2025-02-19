@@ -33,6 +33,29 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 
 # User class definition
+# class User(db.Model, UserMixin):
+#     __tablename__ = "user"
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(150), nullable=False)
+#     email = db.Column(db.String(150), unique=True, nullable=False)
+#     age = db.Column(db.Integer, nullable=True)
+#     gender = db.Column(db.String(150), nullable=True)
+#     password_hash = db.Column(db.String(256), nullable=False)
+#     mobile = db.Column(db.String(15), nullable=False)
+#     role = db.Column(db.String(50), nullable=False, default='user')
+
+#     def set_password(self, password):
+#         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+
+#     def check_password(self, password):
+#         return bcrypt.check_password_hash(self.password_hash, password)
+
+#     def delete(self):
+#         db.session.delete(self)
+#         db.session.commit()
+
+
 class User(db.Model, UserMixin):
     __tablename__ = "user"
 
@@ -129,7 +152,7 @@ def login():
         password = request.form.get("password")
 
         user = User.query.filter_by(email=email).first()
-        if user and user.check_password(password):
+        if user and user.check_password(password    ):
             login_user(user)
             flash("Login successful!", "success")
             next_page = request.args.get('next')
@@ -180,7 +203,9 @@ def update(id):
 @login_required
 @admin_required
 def admin():
-    return render_template("register.html")
+    # Fetch all users except the admin
+    users = User.query.filter(User.role != 'admin').all()
+    return render_template("data.html", users=users)
 
 @app.route("/homepage")
 @login_required
@@ -300,6 +325,10 @@ def setting():
 def term():
     return render_template("terms.html")
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 @app.route("/learn")
 def learn():
     return render_template("learn.html")
@@ -314,11 +343,19 @@ def coming():
 def search():
     return render_template("search.html")
 
+# @app.route("/data")
+# @admin_required
+# @login_required
+# def data():
+#     return render_template("data.html")
+
 @app.route("/data")
 @admin_required
 @login_required
 def data():
-    return render_template("data.html")
+    # Fetch all users except the admin
+    users = User.query.filter(User.role != 'admin').all()
+    return render_template("data.html", users=users)
 
 @app.route("/update_profile", methods=["POST"])
 @login_required

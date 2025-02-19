@@ -477,7 +477,7 @@
         footer {
             background-color: #123d3d;
             color: var(--text-light);
-            padding: 2rem 0;
+            padding: 2rem 2rem;
             color: whitesmoke;
         }
 
@@ -516,15 +516,17 @@
             margin-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
     <!-- Rest of the HTML remains exactly the same -->
     <nav class="nav">
-        <div class="logo">FABLE</div>
+        <div class="logo"><a href="{{url_for('home')}}" style="color: white;">FABLE</div></a>
         <div class="nav-right">
-            <a href="{{url_for('login')}}" class="reservation-btn" id="loginLink">Login</a>
             <a href="{{url_for('help')}}" class="reservation-btn">
                 <div>Help Center</div>
             </a>
@@ -542,7 +544,7 @@
                 <h1 class="poiret-one-regular">Experience Luxury <br>Redefined</h1>
                 <p>Indulge in a world where elegance whispers and luxury speaks. Your unforgettable escape begins here.
                 </p>
-                <a href="#" class="btn btn-outline-light">Your Escape Awaits</a>
+                <a href="{{url_for('register')}}" class="btn btn-outline-light">Your Escape Awaits</a>
             </div>
         </div>
     </section>
@@ -599,7 +601,7 @@
                             satisfaction. <br><br>Exclusive Amenities – From rooftop infinity pools to private dining
                             experiences. <br><br>Seamless Booking & Stay – Effortless check-ins, premium concierge, and
                             tailored guest experiences.</p>
-                        <a href="#join-us" class="btn btn-primary">Explore</a>
+                        <a href="{{url_for('home')}}" class="btn btn-primary">Explore</a>
                     </div>
                 </div>
             </div>
@@ -611,7 +613,7 @@
             <div class="cta-content">
                 <h2 class="mb-4">Start Your Journey</h2>
                 <p class="mb-4">Join us for an unforgettable stay at any of our luxurious properties worldwide.</p>
-                <a href="#" class="btn btn-outline-light">Book Now</a>
+                <a href="{{url_for('register')}}" class="btn btn-outline-light">Book Now</a>
             </div>
         </div>
     </section>
@@ -628,7 +630,6 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#">Home</a></li>
                         <li><a href="#">Rooms & Suites</a></li>
                         <li><a href="#">Dining</a></li>
                         <li><a href="#">Wellness & Spa</a></li>
@@ -639,11 +640,9 @@
                 <div class="footer-column">
                     <h3>Information</h3>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="{{url_for('term')}}">Terms & Conditions</a></li>
+                        <li><a href="{{url_for('term')}}">Privacy Policy</a></li>
+                        <li><a href="{{url_for('help')}}">FAQ</a></li>
                     </ul>
                 </div>
 

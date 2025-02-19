@@ -849,7 +849,7 @@
   <div class="navbar">
     <div class="navbar-logo">
       <a href="#">
-        <img src="../static/fable_logo.jpg" alt="Fable Hotels Logo" />
+        <img src="../static/logo.png" alt="Fable Hotels Logo" />
       </a>
     </div>
 
@@ -871,7 +871,7 @@
         <i class="fa-solid fa-user profile-icon"></i>
         <div class="dropdown-menu">
           <a href="{{url_for('profile')}}">Profile</a>
-        
+
           <a href="{{url_for('logout')}}">Logout</a>
           <a href="{{url_for('contact')}}">Contact</a>
           <a href="{{url_for('feedback')}}">Feedback</a>
@@ -910,13 +910,13 @@
         </div>
 
         <button type="submit" class="search-button">
-          <a href="{{url_for('search')}}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </a>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+
         </button>
 
 
@@ -927,17 +927,21 @@
   <!-- Category bar -->
   <div class="category-bar">
     <!-- [Category bar content remains unchanged] -->
-    <div class="category">
-      <img src="../static/type1.jpeg" alt="Amazing pools" class="hotel-img" />
-      <p class="category-text">
-        <a href="{{url_for('amazing')}}">Amazing pools</a>
-      </p>
-    </div>
+    <a href="{{url_for('amazing')}}">
+      <div class="category">
+        <img src="../static/type1.jpeg" alt="Amazing pools" class="hotel-img" />
+        <p class="category-text">
+          Amazing pools
+        </p>
+      </div>
+    </a>
     <!-- [Rest of categories remain unchanged] -->
+    <a href="{{url_for('beach')}}">
     <div class="category">
       <img src="../static/type2.jpeg" alt="Beach" class="hotel-img" />
-      <p class="category-text"><a href="{{url_for('beach')}}">Beaches</a></p>
+      <p class="category-text">Beaches</p>
     </div>
+    </a>
     <div class="category">
       <img src="../static/type3.jpeg" alt="Luxury" class="hotel-img" />
       <p class="category-text"><a href="{{url_for('luxury')}}">Luxury</a></p>
