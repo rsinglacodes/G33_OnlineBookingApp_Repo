@@ -4,7 +4,7 @@ import os
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from functools import wraps
-
+import random
 
 def admin_required(func):
     @wraps(func)
@@ -14,7 +14,6 @@ def admin_required(func):
             return redirect(url_for('home'))
         return func(*args, **kwargs)
     return wrapper
-
 
 app = Flask(__name__)
 
@@ -35,13 +34,13 @@ login_manager.login_view = "login"
 
 # User class definition
 class User(db.Model, UserMixin):
-    __tablename__ ="user"
+    __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
-    age = db.Column(db.Integer, nullable =True)
-    gender = db.Column(db.String(150), nullable = True)
+    age = db.Column(db.Integer, nullable=True)
+    gender = db.Column(db.String(150), nullable=True)
     password_hash = db.Column(db.String(256), nullable=False)
     mobile = db.Column(db.String(15), nullable=False)
     role = db.Column(db.String(50), nullable=False, default='user')
@@ -51,10 +50,30 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
-    
-    def __repr__(self):
-        return f"User('{self.id}', '{self.name}', '{self.email}', '{self.age}', '{self.gender}', '{self.mobile}')"
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+# Room class definition
+class Room(db.Model):
+    __tablename__ = "room"
+
+    id = db.Column(db.Integer, primary_key=True)
+    hotel_name = db.Column(db.String(150), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    image1 = db.Column(db.String(500), nullable=False)
+    image2 = db.Column(db.String(500), nullable=False)
+    image3 = db.Column(db.String(500), nullable=False)
+    image4 = db.Column(db.String(500), nullable=False)
+    image5 = db.Column(db.String(500), nullable=False)
+    location = db.Column(db.String(150), nullable=False)
+    guests = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Room('{self.hotel_name}', '{self.price}', '{self.location}')"
+
+# Define the user_loader function
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -69,7 +88,6 @@ with app.app_context():
         db.session.add(admin_user)
         db.session.commit()
         print("Admin user created with email: admin@gmail.com and password: admin123")
-
 
 @app.route("/")
 def home():
@@ -86,9 +104,6 @@ def register():
         confirm_password = request.form.get("confirm_password")
         mobile = request.form.get("mobile")
 
-
-        print("name",name)
-
         if password != confirm_password:
             flash("Passwords do not match!", "danger")
             return redirect(url_for("register"))
@@ -97,14 +112,13 @@ def register():
             flash("Email already exists!", "danger")
             return redirect(url_for("register"))
 
-        new_user = User(name=name, email=email, mobile=mobile, age=age, gender=gender, role='user')  # Set role to 'user'
+        new_user = User(name=name, email=email, mobile=mobile, age=age, gender=gender, role='user')
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
 
         flash("Registration successful! Please log in.", "success")
         return redirect(url_for("login"))
-    
 
     return render_template("register.html")
 
@@ -118,14 +132,15 @@ def login():
         if user and user.check_password(password):
             login_user(user)
             flash("Login successful!", "success")
-            return redirect(url_for("amazing"))  # Redirect to homepage, or desired location
+            next_page = request.args.get('next')
+            return redirect(next_page or url_for("amazing"))
         else:
             if user and user.role == 'admin':
                 flash("Invalid admin credentials!", "danger")
             else:
                 flash("Invalid credentials!", "danger")
 
-    return render_template("index.html")  # Assuming you have a login.html template
+    return render_template("index.html")
 
 @app.route("/delete/<int:id>")
 @login_required
@@ -146,7 +161,7 @@ def update(id):
     if not user:
         flash("User not found!", "danger")
         return redirect(url_for("homepage"))
-    
+
     if request.method == "POST":
         user.name = request.form.get("name")
         user.age = request.form.get("age")
@@ -160,7 +175,6 @@ def update(id):
         return redirect(url_for("amazing"))
 
     return render_template("update.html", user=user)
-
 
 @app.route('/admin')
 @login_required
@@ -197,7 +211,70 @@ def help():
 @app.route("/amazing")
 @login_required
 def amazing():
-    return render_template("amazing.html")
+    # Fetch all rooms from the database
+    rooms = Room.query.all()
+    # Generate random ratings and review counts for each room
+    room_data = []
+    for room in rooms:
+        room_data.append({
+            'room': room,
+            'rating': generate_random_rating(),
+            'review_count': generate_review_count()
+        })
+    return render_template("amazing.html", rooms=room_data)
+
+def generate_random_rating():
+    """Generate a random rating between 4.0 and 5.0"""
+    return round(random.uniform(4.0, 5.0), 1)
+
+def generate_review_count():
+    """Generate a random number of reviews between 5 and 50"""
+    return random.randint(5, 50)
+
+
+@app.route("/rooms/<int:room_id>")
+def rooms(room_id):
+    room = Room.query.get(room_id)
+    if not room:
+        flash("Room not found!", "danger")
+        return redirect(url_for("amazing"))
+    
+    # Generate random rating and review count
+    rating = generate_random_rating()
+    review_count = generate_review_count()
+    
+    return render_template("rooms.html", room=room, rating=rating, review_count=review_count)
+
+
+@app.route("/confirm")
+@login_required
+def confirm():
+    # Get query parameters
+    room_id = request.args.get('room_id')
+    check_in = request.args.get('check_in')
+    check_out = request.args.get('check_out')
+    guests = request.args.get('guests')
+
+    # Fetch the room data from the database
+    room = Room.query.get(room_id)
+    if not room:
+        flash("Room not found!", "danger")
+        return redirect(url_for("amazing"))
+
+    # Pass the data to the confirm.html template
+    return render_template("confirm.html", room=room, check_in=check_in, check_out=check_out, guests=guests)
+
+@app.route("/book", methods=["POST"])
+@login_required
+def book():
+    room_id = request.form.get("room_id")
+    room = Room.query.get(room_id)
+    if not room:
+        flash("Room not found!", "danger")
+        return redirect(url_for("amazing"))
+
+    flash("Room booked successfully!", "success")
+    return redirect(url_for("amazing"))
 
 @app.route("/beach")
 @login_required
@@ -223,17 +300,14 @@ def setting():
 def term():
     return render_template("terms.html")
 
-
 @app.route("/learn")
 def learn():
     return render_template("learn.html")
-
 
 @app.route("/coming")
 @login_required
 def coming():
     return render_template("coming.html")
-
 
 @app.route("/search")
 @login_required
@@ -245,6 +319,65 @@ def search():
 @login_required
 def data():
     return render_template("data.html")
+
+@app.route("/update_profile", methods=["POST"])
+@login_required
+def update_profile():
+    if request.method == "POST":
+        current_user.name = request.form.get("name")
+        current_user.email = request.form.get("email")
+        current_user.mobile = request.form.get("mobile")
+
+        try:
+            db.session.commit()
+            flash("Profile updated successfully!", "success")
+        except:
+            db.session.rollback()
+            flash("Error updating profile. Please try again.", "danger")
+
+    return redirect(url_for("profile"))
+
+@app.route("/delete_profile")
+@login_required
+def delete_profile():
+    try:
+        # Store user id before logout
+        user_id = current_user.id
+
+        # Log out the user first
+        logout_user()
+
+        # Delete user from database
+        user = User.query.get(user_id)
+        if user:
+            # Print for debugging
+            print(f"Deleting user: {user.email}")
+
+            # Delete and commit
+            db.session.delete(user)
+            db.session.commit()
+
+            # Print for debugging
+            print("User deleted successfully")
+            flash("Your profile has been deleted successfully.", "success")
+            return redirect(url_for('home'))
+        else:
+            flash("User not found.", "danger")
+            return redirect(url_for('home'))
+
+    except Exception as e:
+        # Print the full error for debugging
+        print(f"Error deleting profile: {str(e)}")
+        db.session.rollback()
+        flash("Error deleting profile. Please try again.", "danger")
+        return redirect(url_for('home'))
+
+@app.route("/check_user/<int:user_id>")
+def check_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        return f"User exists: {user.email}"
+    return "User not found"
 
 if __name__ == "__main__":
     app.run(debug=True)

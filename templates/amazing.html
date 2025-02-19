@@ -1,9 +1,120 @@
-{% extends 'homepage.html' %}
+{% extends 'base2.html' %}
+
 {% block content %}
 <style>
     .category.active {
         background-color: var(--secondary-color);
-        opacity: 1; /* Ensure full opacity when active */
+        opacity: 1;
+    }
+
+    .hotel-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .hotel-card {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hotel-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .hotel-image-container {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .hotel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .favorite-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .favorite-button.active i {
+        color: #ff385c;
+    }
+
+    .favorite-button:hover {
+        background: rgba(255, 255, 255, 1);
+    }
+
+    .hotel-content {
+        padding: 1rem;
+    }
+
+    .hotel-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .hotel-location {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .hotel-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .hotel-rating i {
+        color: #ff385c;
+    }
+
+    .hotel-distance {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .hotel-dates {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .hotel-price {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .hotel-price span {
+        font-size: 0.9rem;
+        font-weight: normal;
+        color: #666;
     }
 </style>
 {% endblock %}
@@ -11,206 +122,38 @@
 {% block main_block %}
 <!-- Hotels Grid -->
 <div class="hotel-grid">
-    <!-- Hotel Card 1 -->
-     <a href="{{url_for('coming')}}">
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/77/c1/b3/swimming-pool-view.jpg?w=700&h=-1&s=1"
-                class="hotel-image" alt="Luxury Resort in Lonavla">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Lonavla, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.9</p>
-                </div>
+    {% for room_data in rooms %}
+    <!-- Hotel Card -->
+    <a href="{{ url_for('rooms', room_id=room_data.room.id) }}">
+        <div class="hotel-card">
+            <div class="hotel-image-container">
+                <img src="{{ room_data.room.image1 }}" class="hotel-image" alt="{{ room_data.room.hotel_name }}">
+                <button class="favorite-button" onclick="toggleFavorite(event, this)">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
             </div>
-            <p class="hotel-distance">63 kilometers away</p>
-            <p class="hotel-dates">Jul 22-27</p>
-            <p class="hotel-price">₹11,000 <span>night</span></p>
-        </div>
-    </div>
-    </a>
-
-    <!-- Hotel Card 2 -->
-      <a href="{{url_for('coming')}}">
-     
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-            <img src="https://www.resortrio.com/wp-content/uploads/2020/10/Pool-view-of-5-star-Resort-Rio-Goa.png"
-                class="hotel-image" alt="Beachfront Resort in Goa">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Goa, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.8</p>
+            <div class="hotel-content">
+                <div class="hotel-info">
+                    <p class="hotel-location">{{ room_data.room.location }}</p>
+                    <div class="hotel-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <p>{{ room_data.rating }}</p>
+                        <p>({{ room_data.review_count }})</p>
+                    </div>
                 </div>
+                <p class="hotel-dates">Available</p>
+                <p class="hotel-price">₹{{ room_data.room.price }} <span>night</span></p>
             </div>
-            <p class="hotel-distance">443 kilometers away</p>
-            <p class="hotel-dates">Aug 5-10</p>
-            <p class="hotel-price">₹15,500 <span>night</span></p>
         </div>
-    </div>
     </a>
-
-    <!-- Hotel Card 3 -->
-      <a href="{{url_for('coming')}}">
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-            <img src="https://images.trvl-media.com/lodging/9000000/8710000/8704400/8704364/17625cdf.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill"
-                class="hotel-image" alt="Luxury Resort in Udaipur">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Udaipur, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.7</p>
-                </div>
-            </div>
-            <p class="hotel-distance">756 kilometers away</p>
-            <p class="hotel-dates">Sep 10-15</p>
-            <p class="hotel-price">₹18,200 <span>night</span></p>
-        </div>
-    </div>
-    </a>
-
-    <!-- Hotel Card 4 -->
-      <a href="{{url_for('coming')}}">
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-            <img src="https://images.trvl-media.com/lodging/12000000/11300000/11298900/11298844/7f337f98.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill"
-                class="hotel-image" alt="Mountain Retreat in Manali">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Manali, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.9</p>
-                </div>
-            </div>
-            <p class="hotel-distance">582 kilometers away</p>
-            <p class="hotel-dates">Jul 20-27</p>
-            <p class="hotel-price">₹14,000 <span>night</span></p>
-        </div>
-    </div>
-    </a>
-
-    <!-- Hotel Card 5 -->
-      <a href="{{url_for('coming')}}">
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-
-            <img src="https://www.shiv-vilas.in/Content/images/banner3.jpg" class="hotel-image" alt="Heritage Hotel in Jaipur">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Jaipur, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.8</p>
-                </div>
-            </div>
-            <p class="hotel-distance">395 kilometers away</p>
-            <p class="hotel-dates">Aug 12-18</p>
-            <p class="hotel-price">₹16,500 <span>night</span></p>
-        </div>
-    </div>
-    </a>
-
-    <!-- Hotel Card 6 -->
-      <a href="{{url_for('coming')}}">
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-            <img src="https://www.global-gallivanting.com/wp-content/uploads/2015/10/leela-kovalam-beach-resort.gif"
-                class="hotel-image" alt="Luxury Villa in Kerala">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Kerala, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.9</p>
-                </div>
-            </div>
-            <p class="hotel-distance">887 kilometers away</p>
-            <p class="hotel-dates">Sep 2-8</p>
-            <p class="hotel-price">₹19,800 <span>night</span></p>
-        </div>
-    </div>
-    </a>
-
-    <!-- Hotel Card 7 -->
-      <a href="{{url_for('coming')}}">
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-            <img src="https://content.jdmagicbox.com/comp/def_content_category/mountain-resorts/1-mountain-resorts-1-3ek5p.jpg"
-                class="hotel-image" alt="Lakeside Resort in Nainital">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Nainital, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.7</p>
-                </div>
-            </div>
-            <p class="hotel-distance">322 kilometers away</p>
-            <p class="hotel-dates">Jul 15-20</p>
-            <p class="hotel-price">₹12,500 <span>night</span></p>
-        </div>
-    </div>
-    </a>
-
-    <!-- Hotel Card 8 -->
-      <a href="{{url_for('coming')}}">
-    <div class="hotel-card">
-        <div class="hotel-image-container">
-            <img src="https://www.kayak.co.in/rimg/himg/6f/8d/28/expedia_group-56533-224779543-508560.jpg?width=836&height=607&crop=true"
-                class="hotel-image" alt="Hillside Retreat in Shimla">
-            <button class="favorite-button">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-        </div>
-        <div class="hotel-content">
-            <div class="hotel-info">
-                <p class="hotel-location">Shimla, India</p>
-                <div class="hotel-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <p>4.8</p>
-                </div>
-            </div>
-            <p class="hotel-distance">345 kilometers away</p>
-            <p class="hotel-dates">Aug 7-13</p>
-            <p class="hotel-price">₹13,200 <span>night</span></p>
-        </div>
-    </div>
-    </a>
+    {% endfor %}
 </div>
 
+<script>
+    function toggleFavorite(event, button) {
+        event.preventDefault();
+        event.stopPropagation();
+        button.classList.toggle('active');
+    }
+</script>
 {% endblock %}
