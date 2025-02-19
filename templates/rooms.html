@@ -1,0 +1,377 @@
+{% extends "base2.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ room.hotel_name }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        :root {
+            --primary-color: #1a4d4d;
+            --secondary-color: #ff385c;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .main-image {
+            grid-row: span 2;
+        }
+
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 2rem;
+        }
+
+        .property-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-meta {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .property-rating {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f8f8;
+            border-radius: 1rem;
+            margin: 1rem 0;
+        }
+
+        .rating-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .host-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .host-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .amenities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .amenity {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f8f8;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .amenity:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .booking-card {
+            position: sticky;
+            top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .date-picker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .date-input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+        }
+
+        .reserve-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reserve-button:hover {
+            background: #246060;
+        }
+
+        .price-breakdown {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+        }
+
+        .rare-find {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fff0f0;
+            border-radius: 0.5rem;
+        }
+
+        .diamond-icon {
+            color: var(--secondary-color);
+        }
+
+        .favorite-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .favorite-button.active {
+            color: #ff385c;
+        }
+
+        @keyframes heartAnimation {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .favorite-button.active i {
+            animation: heartAnimation 0.5s ease;
+            color: #ff385c;
+        }
+
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .property-header {
+                flex-direction: column;
+            }
+
+            .booking-card {
+                position: static;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="main-content">
+        <h1 class="property-title">{{ room.hotel_name }}</h1>
+        <p class="property-meta">{{ room.location }}</p>
+
+        <div class="image-grid">
+            <img src="{{ room.image1 }}" alt="Main view" class="main-image">
+            <img src="{{ room.image2 }}" alt="Property view 1">
+            <img src="{{ room.image3 }}" alt="Property view 2">
+            <img src="{{ room.image4 }}" alt="Property view 3">
+            <img src="{{ room.image5 }}" alt="Property view 4">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;">
+            <div>
+                <div class="property-header">
+                    <div>
+                        <h2>{{ room.guests }} guests · 4 bedrooms · 8 beds · 2 bathrooms</h2>
+                    </div>
+                    <button class="favorite-button" onclick="toggleFavorite(this)">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+
+                <div class="property-rating">
+                    <div>
+                        <div class="rating-number">{{ rating }}</div>
+                        <div>{{ review_count }} Reviews</div>
+                    </div>
+                    <div>Guest favourite</div>
+                </div>
+
+                <div class="host-section">
+                    <img src="/api/placeholder/50/50" alt="Host" class="host-image">
+                    <div>
+                        <h3>Hosted by Oskari</h3>
+                        <p>Superhost · 3 years hosting</p>
+                    </div>
+                </div>
+
+                <div class="amenities">
+                    <div class="amenity">
+                        <span>🛁</span>
+                        <div>
+                            <h3>Unwind in the hot tub</h3>
+                            <p>This is one of the few places in the area with this amenity.</p>
+                        </div>
+                    </div>
+                    <div class="amenity">
+                        <span>🔑</span>
+                        <div>
+                            <h3>Self check-in</h3>
+                            <p>Check yourself in with the keypad.</p>
+                        </div>
+                    </div>
+                    <div class="amenity">
+                        <span>📅</span>
+                        <div>
+                            <h3>Free cancellation for 48 hours</h3>
+                            <p>Get a full refund if you change your mind.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="price">₹{{ room.price }} <span style="font-weight: normal; font-size: 1rem;">night</span>
+                </div>
+
+                <div class="date-picker">
+                    <input type="date" id="check-in-date" class="date-input" value="2025-03-10">
+                    <input type="date" id="check-out-date" class="date-input" value="2025-03-15">
+                    <select id="guests" class="date-input" style="grid-column: span 2;">
+                        <option>1 guest</option>
+                        <option>2 guests</option>
+                        <option>3 guests</option>
+                    </select>
+                </div>
+
+                <button class="reserve-button" onclick="redirectToConfirm()">Reserve</button>
+                <p style="text-align: center; margin: 1rem 0; color: #666;">You won't be charged yet</p>
+
+                <div class="price-breakdown">
+                    <div class="price-row">
+                        <span>₹{{ room.price }} x 5 nights</span>
+                        <span>₹{{ room.price * 5 }}</span>
+                    </div>
+                    <div class="price-row"
+                        style="font-weight: bold; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ddd;">
+                        <span>Total before taxes</span>
+                        <span id="total-price">₹{{ room.price * 5 }}</span>
+                    </div>
+                </div>
+
+                <div class="rare-find">
+                    <span class="diamond-icon">♦</span>
+                    <div>
+                        <strong>This is a rare find</strong>
+                        <p>Oskari's place is usually fully booked.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function redirectToConfirm() {
+            const checkInDate = document.getElementById('check-in-date').value;
+            const checkOutDate = document.getElementById('check-out-date').value;
+            const guests = document.getElementById('guests').value;
+
+            window.location.href = `{{ url_for('confirm') }}?room_id={{ room.id }}&check_in=${checkInDate}&check_out=${checkOutDate}&guests=${guests}`;
+        }
+
+        function toggleFavorite(button) {
+            button.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
+{% endblock %}

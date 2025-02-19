@@ -2,6 +2,7 @@
 
 {% block content %}
 <style>
+/* Keep existing styles */
  /* Enhanced Hero Section */
  .hero {
     background-color: var(--light-teal);
@@ -596,10 +597,154 @@ textarea {
         transform: translateX(-50%) translateY(0);
     }
 }
+
+/* Add popup styles */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 77, 77, 0.2);
+    backdrop-filter: blur(8px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(26, 77, 77, 0.15);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.popup-container.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.popup-success-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.popup-success-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: drawCheck 0.5s 0.2s forwards;
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+}
+
+.popup-title {
+    color: var(--primary-teal);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.5s 0.3s forwards;
+    opacity: 0;
+}
+
+.popup-message {
+    color: #666;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    animation: fadeInUp 0.5s 0.4s forwards;
+    opacity: 0;
+}
+
+.popup-close-btn {
+    background: var(--primary-teal);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: fadeInUp 0.5s 0.5s forwards;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.popup-close-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.popup-close-btn:hover {
+    background: var(--dark-teal);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(26, 77, 77, 0.2);
+}
+
+.popup-close-btn:hover::before {
+    left: 100%;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes drawCheck {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 </style>
+
 {% endblock %}
 
 {% block main_block %}
+<!-- Keep existing content -->
 <section class="hero animate_animated animate_fadeIn">
     <div class="container">
         <h1 class="animate_animated animate_fadeInDown">Contact Us</h1>
@@ -705,7 +850,7 @@ textarea {
                 <div class="map-overlay"></div>
                 <div class="map-pin"></div>
                 <div class="map-card">
-                    <h3>GreenStay Hotels</h3>
+                    <h3>Fable </h3>
                     <p>Chitkara University Chandigarh-patiala national highway (NH-64) village jhansla, rajpura,
                         Punjab</p>
                 </div>
@@ -715,4 +860,55 @@ textarea {
     </div>
 </section>
 
+
+<!-- Add popup HTML -->
+<div class="popup-overlay">
+    <div class="popup-container">
+        <div class="popup-success-icon">
+            <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <h3 class="popup-title">Thank You!</h3>
+        <p class="popup-message">Your message has been sent successfully. We'll get back to you soon!</p>
+        <button class="popup-close-btn">Close</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.contact-form form');
+    const popup = document.querySelector('.popup-overlay');
+    const popupContainer = document.querySelector('.popup-container');
+    const closeButton = document.querySelector('.popup-close-btn');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Here you would typically send the form data to your Flask backend
+        // For demonstration, we'll just show the popup
+        popup.style.display = 'flex';
+        setTimeout(() => {
+            popupContainer.classList.add('active');
+        }, 10);
+    });
+
+    function closePopup() {
+        popupContainer.classList.remove('active');
+        setTimeout(() => {
+            popup.style.display = 'none';
+            form.reset(); // Optional: reset the form after closing
+        }, 300);
+    }
+
+    closeButton.addEventListener('click', closePopup);
+
+    // Close popup when clicking outside
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+            closePopup();
+        }
+    });
+});
+</script>
 {% endblock %}

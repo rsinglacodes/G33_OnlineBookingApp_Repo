@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm and Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: #1a4d4d;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .header:hover {
+            opacity: 0.8;
+        }
+
+        .back-arrow {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .rare-find {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .diamond {
+            color: #ff385c;
+        }
+
+        .trip-details {
+            margin-bottom: 2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .edit-btn {
+            color: #1a4d4d;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            opacity: 0.7;
+        }
+
+        .price-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+
+        .total {
+            border-top: 1px solid #ddd;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            font-weight: bold;
+        }
+
+        .property-card {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .property-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .property-info {
+            flex: 1;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .book-button {
+            width: 100%;
+            padding: 1rem;
+            background: #1a4d4d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .book-button:hover {
+            background: #245f5f;
+        }
+
+        .success-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;
+            animation: popupAnimation 0.5s ease;
+        }
+
+        @keyframes popupAnimation {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-popup h2 {
+            margin-bottom: 1rem;
+        }
+
+        .success-popup button {
+            padding: 0.8rem 1.5rem;
+            background: #1a4d4d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .success-popup button:hover {
+            background: #245f5f;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            animation: overlayAnimation 0.5s ease;
+        }
+
+        @keyframes overlayAnimation {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .edit-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+        }
+
+        .edit-popup h2 {
+            margin-bottom: 1rem;
+        }
+
+        .edit-popup input,
+        .edit-popup select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .edit-popup button {
+            padding: 0.8rem 1.5rem;
+            background: #1a4d4d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-popup button:hover {
+            background: #245f5f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header" onclick="window.location.href='{{ url_for('amazing') }}'">
+            <span class="back-arrow">←</span>
+            <h1>Confirm and pay</h1>
+        </div>
+
+        <div class="main-content">
+            <div class="left-column">
+                <div class="card rare-find">
+                    <div>
+                        <p>This is a rare find.</p>
+                        <p>{{ room.hotel_name }} is usually booked.</p>
+                    </div>
+                    <span class="diamond">♦</span>
+                </div>
+
+                <div class="card trip-details">
+                    <h2>Your trip</h2>
+                    <div class="detail-row">
+                        <div>
+                            <h3>Dates</h3>
+                            <p id="dates">{{ check_in }} – {{ check_out }}</p>
+                        </div>
+                        <!-- <span class="edit-btn" onclick="showEditPopup('dates')">Edit</span> -->
+                    </div>
+                    <div class="detail-row">
+                        <div>
+                            <h3>Guests</h3>
+                            <p id="guests">{{ guests }}</p>
+                        </div>
+                        <!-- <span class="edit-btn" onclick="showEditPopup('guests')">Edit</span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="card">
+                    <div class="property-card">
+                        <img src="{{ room.image1 }}" alt="Property" class="property-image">
+                        <div class="property-info">
+                            <h3>{{ room.hotel_name }}</h3>
+                            <p>{{ room.location }}</p>
+                            <div class="rating">
+                                <span>★ 5.00</span>
+                                <span>(14 reviews)</span>
+                                <span>• Superhost</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-details">
+                        <div class="price-row">
+                            <span>₹{{ room.price }} x <span id="nights">5</span> nights</span>
+                            <span id="room-total">₹{{ room.price * 5 }}</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total (INR)</span>
+                            <span id="total-price">₹{{ room.price * 5 }}</span>
+                        </div>
+                    </div>
+
+                    <button class="book-button" onclick="bookRoom()">Book your room</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="overlay" id="overlay" style="display: none;"></div>
+    <div class="success-popup" id="success-popup" style="display: none;">
+        <h2>Room booked successfully!</h2>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <!-- Edit Popup
+    <div class="overlay" id="edit-overlay" style="display: none;"></div>
+    <div class="edit-popup" id="edit-popup">
+        <input type="date" id="edit-check-in" class="date-input">
+        <input type="date" id="edit-check-out" class="date-input">
+        <select id="edit-guests" class="date-input">
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+        </select>
+        <button onclick="submitEdit()">Submit</button>
+        <button onclick="closeEditPopup()">Cancel</button>
+    </div> -->
+
+    <script>
+        
+
+        
+        
+
+        function bookRoom() {
+            // Show the success popup
+            document.getElementById('success-popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            // Hide the success popup and redirect to amazing.html
+            document.getElementById('success-popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            window.location.href = "{{ url_for('amazing') }}";
+        }
+    </script>
+</body>
+
+</html>
