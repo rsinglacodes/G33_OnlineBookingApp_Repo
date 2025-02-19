@@ -5,7 +5,9 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fable Hotels - Find Your Perfect Stay</title>
+  <link rel="icon" type="image/x-icon" href="../static/logo_leaf.png">
+
+  <title>Fable</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -871,7 +873,7 @@
         <i class="fa-solid fa-user profile-icon"></i>
         <div class="dropdown-menu">
           <a href="{{url_for('profile')}}">Profile</a>
-
+          <a href="{{url_for('data')}}">Dashboard </a>
           <a href="{{url_for('logout')}}">Logout</a>
           <a href="{{url_for('contact')}}">Contact</a>
           <a href="{{url_for('feedback')}}">Feedback</a>
@@ -937,10 +939,10 @@
     </a>
     <!-- [Rest of categories remain unchanged] -->
     <a href="{{url_for('beach')}}">
-    <div class="category">
-      <img src="../static/type2.jpeg" alt="Beach" class="hotel-img" />
-      <p class="category-text">Beaches</p>
-    </div>
+      <div class="category">
+        <img src="../static/type2.jpeg" alt="Beach" class="hotel-img" />
+        <p class="category-text">Beaches</p>
+      </div>
     </a>
     <div class="category">
       <img src="../static/type3.jpeg" alt="Luxury" class="hotel-img" />

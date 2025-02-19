@@ -9,9 +9,9 @@ import random
 def admin_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if current_user.role != 'admin':
-            flash("Access denied!", "danger")
-            return redirect(url_for('home'))
+        if not current_user.is_authenticated or current_user.role != 'admin':
+            flash("Access denied! Admin privileges required.", "danger")
+            return redirect(url_for('home'))  # This is currently redirecting to 'home'
         return func(*args, **kwargs)
     return wrapper
 
@@ -34,7 +34,7 @@ login_manager.login_view = "login"
 
 # User class definition
 # class User(db.Model, UserMixin):
-#     __tablename__ = "user"
+#     _tablename_ = "user"
 
 #     id = db.Column(db.Integer, primary_key=True)
 #     name = db.Column(db.String(150), nullable=False)
@@ -57,7 +57,7 @@ login_manager.login_view = "login"
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = "user"
+    _tablename_ = "user"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), nullable=False)
@@ -80,7 +80,7 @@ class User(db.Model, UserMixin):
 
 # Room class definition
 class Room(db.Model):
-    __tablename__ = "room"
+    _tablename_ = "room"
 
     id = db.Column(db.Integer, primary_key=True)
     hotel_name = db.Column(db.String(150), nullable=False)
@@ -93,7 +93,7 @@ class Room(db.Model):
     location = db.Column(db.String(150), nullable=False)
     guests = db.Column(db.Integer, nullable=False)
 
-    def __repr__(self):
+    def _repr_(self):
         return f"Room('{self.hotel_name}', '{self.price}', '{self.location}')"
 
 # Define the user_loader function
@@ -197,7 +197,7 @@ def update(id):
         flash("User details updated!", "success")
         return redirect(url_for("amazing"))
 
-    return render_template("update.html", user=user)
+    return redirect(url_for('profile'))
 
 @app.route('/admin')
 @login_required
@@ -343,19 +343,33 @@ def coming():
 def search():
     return render_template("search.html")
 
+
+# Keep this version
 # @app.route("/data")
-# @admin_required
 # @login_required
+# @admin_required
 # def data():
-#     return render_template("data.html")
+#     # Fetch all users except the admin
+#     users = User.query.filter(User.role != 'admin').all()
+#     return render_template("data.html", users=users)
+
 
 @app.route("/data")
-@admin_required
 @login_required
+@admin_required
 def data():
-    # Fetch all users except the admin
+    if not current_user.is_authenticated:
+        flash("Please log in first.", "danger")
+        return redirect(url_for('login'))
+    
+    if current_user.role != 'admin':
+        flash("Access denied! Admin privileges required.", "danger")
+        return redirect(url_for('home'))
+        
     users = User.query.filter(User.role != 'admin').all()
     return render_template("data.html", users=users)
+
+
 
 @app.route("/update_profile", methods=["POST"])
 @login_required
