@@ -13,7 +13,7 @@
   <style>
     :root {
       --primary-color: #1a4d4d;
-      --secondary-color:var(--accent-teal);
+      --secondary-color: var(--accent-teal);
       --light-color: #e6eded;
       --dark-teal: #0d2626;
       --accent-teal: #2c7a7a;
@@ -101,14 +101,14 @@
       border-color: white;
       background-color: rgba(255, 255, 255, 0.1);
     }
-    
+
     .menu-toggle {
       display: none;
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
     }
-    
+
     .menu-toggle span {
       display: block;
       width: 25px;
@@ -116,7 +116,8 @@
       background-color: white;
       border-radius: 3px;
     }
-        main {
+
+    main {
       padding: 2rem 0;
     }
 
@@ -356,7 +357,8 @@
         font-size: 2rem;
       }
     }
-    a{
+
+    a {
       text-decoration: none;
       color: #fff;
     }
@@ -365,19 +367,19 @@
 
 <body>
   <header>
-    
-        <nav class="nav">
-          <a href="" class="logo_main">FABLE</a>
-          <div class="nav-right">
-            <a href="{{url_for('home')}}" class="reservation-btn" id="login-link">Home </a>
-            <div class="menu-toggle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        </nav>
-      
+
+    <nav class="nav">
+      <a href="{{ url_for('home') }}" class="logo_main">FABLE</a>
+      <div class="nav-right">
+        <a href="{{url_for('home')}}" class="reservation-btn" id="login-link">Home </a>
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
   </header>
   <main>
     <section class="hero">
